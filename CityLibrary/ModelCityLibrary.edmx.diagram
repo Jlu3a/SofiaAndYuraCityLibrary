@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="84e1fd113ee74a4e98e733959f5b34d4" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="CityLibraryModel.Book" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CityLibraryModel.OrderBook" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CityLibraryModel.Reader" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CityLibraryModel.User" Width="1.5" PointX="5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CityLibraryModel.UserRole" Width="1.5" PointX="2.75" PointY="5.375" IsExpanded="true" />
+        <AssociationConnector Association="CityLibraryModel.FK_OrderBook_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="CityLibraryModel.FK_OrderBook_Reader" ManuallyRouted="false" />
+        <AssociationConnector Association="CityLibraryModel.FK_User_UserRole1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
