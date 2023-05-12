@@ -18,9 +18,9 @@ namespace CityLibrary
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Authorization : Window
     {
-        public MainWindow()
+        public Authorization()
         {
             InitializeComponent();
         }
