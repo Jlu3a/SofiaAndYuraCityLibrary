@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:CityLibrary"
              StartupUri="Windows/Authorization.xaml">
     <Application.Resources>
-         
+        
     </Application.Resources>
 </Application>
