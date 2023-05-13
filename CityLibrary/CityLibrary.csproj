@@ -64,7 +64,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ApplDbContext\AppDbContext.cs" />
     <Compile Include="Book.cs">
       <DependentUpon>ModelCityLibrary.tt</DependentUpon>
     </Compile>
