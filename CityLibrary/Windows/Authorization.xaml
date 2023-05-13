@@ -5,8 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CityLibrary"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Авторизация" Height="600" Width="1000">
     <Grid>
-        
+        <Image Source="/3d-render-books-textbook-stack-pencil-and-pen.jpg" Stretch="Fill"/>
+
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" Width="630" Height="470" Fill="#CAFFFFFF"/>
+
+            <Grid>
+                <Rectangle HorizontalAlignment="Center" VerticalAlignment="Top" Width="630" Height="120" Fill="White" Margin="0,-12,0,0"/>
+
+                <TextBox HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,15,0,0" FontSize="48" Background="White" BorderBrush="White" TextWrapping="Wrap" Text="Авторизация"/>
+            </Grid>
+
+            <TextBox x:Name="LoginTxt" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,199,0,0" Width="258" FontSize="20" TextWrapping="Wrap"/>
+
+            <Label Content="Логин&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="186,165,0,0" Height="34" FontSize="18" FontWeight="Bold"/>
+
+            <Label Content="Пароль" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="186,245,0,0" FontSize="18" FontWeight="Bold"/>
+
+            <Button x:Name="SignInBtn" Content="Войти" HorizontalAlignment="Center" VerticalAlignment="Top" Width="258" Height="26" Margin="0,352,0,0" FontSize="16" FontWeight="Bold" Background="#FFA9A8EE" BorderBrush="#FFA9A8EE" Click="SignInBtn_Click"/>
+            <CheckBox x:Name="ShowPass" Content="Показать пароль" HorizontalAlignment="Left" Margin="186,313,0,0" VerticalAlignment="Top" Checked="ShowPass_Checked" IsChecked="False"/>
+            <PasswordBox x:Name="PassTxt" HorizontalAlignment="Center" Margin="0,279,0,0" VerticalAlignment="Top" Width="258" Height="29" PasswordChar="*" />
+
+        </Grid>
     </Grid>
 </Window>

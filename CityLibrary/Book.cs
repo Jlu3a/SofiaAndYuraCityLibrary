@@ -23,6 +23,7 @@ namespace CityLibrary
         public int BookId { get; set; }
         public string BookName { get; set; }
         public string Author { get; set; }
+        public int BookCount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderBook> OrderBook { get; set; }
