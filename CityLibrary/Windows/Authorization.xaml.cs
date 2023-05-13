@@ -26,41 +26,68 @@ namespace CityLibrary
         public Authorization()
         {
             InitializeComponent();
+            // git start
         }
 
         private void SignInBtn_Click(object sender, RoutedEventArgs e)
         {
-            string userLogin = LoginTxt.Text;
-            string userPass = PassTxt.Password;
+            string userLogin = "";
+            var userPass = "";
+            if(LoginTxt.Text != "" ||  LoginTxt.Text != null)
+            {
+				userLogin = LoginTxt.Text;
+				if (PassTxtMask.Password != "" || PassTxtMask.Password != null)
+				{
+					userPass = ShowPass.IsChecked.Value ? PassTxtUnmask.Text : PassTxtMask.Password;
+				}
+                else
+                {
+                    MessageBox.Show("Провере поле пароля");
+                }
+			}
+            else
+            {
+                MessageBox.Show("Проверте поле логина");
+            }
+
 
             User user = _entities.User.FirstOrDefault(u => u.UserLogin == userLogin && u.UserPassword == userPass);
             if(user != null)
             {
                 MessageBox.Show("Добро пожалрвать!");
                 int userRole = user.UserRole;
-                this.Hide();
-                LibraryView libraryView = new LibraryView(userRole);
+				LibraryView libraryView = new LibraryView(userRole);
                 libraryView.Show();
-                //switch (user.UserRole)
-                //{
-                //    case 1:
-                //        MessageBox.Show("Зав. библиотекой");
-                //        break;
-                //    default:
-                //        MessageBox.Show("Библиотекарь");
-                //        break;
-                //}
-            }
+                this.Close();
+				//switch (user.UserRole)
+				//{
+				//    case 1:
+				//        MessageBox.Show("Зав. библиотекой");
+				//        break;
+				//    default:
+				//        MessageBox.Show("Библиотекарь");
+				//        break;
+				//}
+			}
             else
                 MessageBox.Show("Пользователь не найден!");
         }
 
-        private void ShowPass_Checked(object sender, RoutedEventArgs e)
+        private void ShowPass_Click(object sender, RoutedEventArgs e)
         {
-            if (ShowPass.IsChecked == false)
+            var checkBox = sender as CheckBox;
+            if (checkBox.IsChecked.Value)
             {
-                PassTxt.PasswordChar = '*'; // скрыть пароль
-            }
-        }
+				PassTxtUnmask.Text = PassTxtMask.Password;
+				PassTxtUnmask.Visibility = Visibility.Visible;
+				PassTxtMask.Visibility = Visibility.Hidden;
+			}
+            else
+            {
+				PassTxtMask.Password = PassTxtUnmask.Text;
+				PassTxtUnmask.Visibility = Visibility.Hidden;
+				PassTxtMask.Visibility = Visibility.Visible;
+			}
+		} 
     }
 }
