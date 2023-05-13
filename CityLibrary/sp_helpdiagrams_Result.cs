@@ -10,22 +10,13 @@
 namespace CityLibrary
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Book
+    public partial class sp_helpdiagrams_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Book()
-        {
-            this.OrderBook = new HashSet<OrderBook>();
-        }
-    
-        public int BookId { get; set; }
-        public string BookName { get; set; }
-        public string Author { get; set; }
-        public int BookCount { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderBook> OrderBook { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

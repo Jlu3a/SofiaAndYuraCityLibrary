@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
+using CityLibrary.Windows;
 
 namespace CityLibrary
 {
@@ -21,7 +22,7 @@ namespace CityLibrary
     /// </summary>
     public partial class Authorization : Window
     {
-        CityLibraryEntities _entities = new CityLibraryEntities();
+        CityLibraryEntities1 _entities = new CityLibraryEntities1();
         public Authorization()
         {
             InitializeComponent();
@@ -35,18 +36,20 @@ namespace CityLibrary
             User user = _entities.User.FirstOrDefault(u => u.UserLogin == userLogin && u.UserPassword == userPass);
             if(user != null)
             {
-                string role;
-                switch (user.UserRole)
-                {
-                    case 1:
-                        role = "Зав. библиотекой";
-                        MessageBox.Show("Зав. библиотекой");
-                        break;
-                    default:
-                        role = "Библиотекарь";
-                        MessageBox.Show("Библиотекарь");
-                        break;
-                }
+                MessageBox.Show("Добро пожалрвать!");
+                int userRole = user.UserRole;
+                this.Hide();
+                LibraryView libraryView = new LibraryView(userRole);
+                libraryView.Show();
+                //switch (user.UserRole)
+                //{
+                //    case 1:
+                //        MessageBox.Show("Зав. библиотекой");
+                //        break;
+                //    default:
+                //        MessageBox.Show("Библиотекарь");
+                //        break;
+                //}
             }
             else
                 MessageBox.Show("Пользователь не найден!");

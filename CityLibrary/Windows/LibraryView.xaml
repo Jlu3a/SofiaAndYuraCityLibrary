@@ -8,18 +8,13 @@
         Title="Управление данными библиотеки" Height="450" Width="800">
     <Grid>
         <Menu Margin="0,0,0,355">
-            <MenuItem Header="Книги" FontSize="22" Click="MenuItem_Click">
-                <MenuItem Header="Книги" ></MenuItem>
-                <MenuItem Header="Добавить книгу" ></MenuItem>
-            </MenuItem>
-            <MenuItem Header="Чиататели" FontSize="22" >
-                <MenuItem Header="Читатели" ></MenuItem>
-                <MenuItem Header="Добавить читателя" >
-             </MenuItem>
-            </MenuItem>
-            <MenuItem Header="Регистрация" FontSize="22" ></MenuItem>
+            <MenuItem Header="Книги" FontSize="22" Click="MenuItem_Click"></MenuItem>
+            <MenuItem Header="Чиататели" FontSize="22" Click="MenuItem_Click_1" ></MenuItem>
+            <MenuItem Header="Регистрация" FontSize="22" Click="MenuItem_Click_2" ></MenuItem>
         </Menu>
-        <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" Margin="0,84,0,0"/>
+        <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" Margin="0,84,0,0">
+
+        </DataGrid>
 
     </Grid>
 </Window>
