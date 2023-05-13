@@ -115,6 +115,15 @@
     <Compile Include="UserRole.cs">
       <DependentUpon>ModelCityLibrary.tt</DependentUpon>
     </Compile>
+    <Compile Include="Windows\EditBookWindow.xaml.cs">
+      <DependentUpon>EditBookWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EditOrderBookWindow.xaml.cs">
+      <DependentUpon>EditOrderBookWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EditReaderWindow.xaml.cs">
+      <DependentUpon>EditReaderWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\LibraryView.xaml.cs">
       <DependentUpon>LibraryView.xaml</DependentUpon>
     </Compile>
@@ -130,6 +139,18 @@
       <DependentUpon>Authorization.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\EditBookWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EditOrderBookWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EditReaderWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\LibraryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -176,6 +197,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="book.png" />
     <Content Include="ModelCityLibrary.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelCityLibrary.edmx</DependentUpon>

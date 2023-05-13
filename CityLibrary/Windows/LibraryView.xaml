@@ -5,16 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CityLibrary.Windows"
         mc:Ignorable="d"
-        Title="Управление данными библиотеки" Height="450" Width="800">
+        Title="Управление данными библиотеки" Height="600
+        " Width="1000">
     <Grid>
-        <Menu Margin="0,0,0,355">
-            <MenuItem Header="Книги" FontSize="22" Click="MenuItem_Click"></MenuItem>
-            <MenuItem Header="Чиататели" FontSize="22" Click="MenuItem_Click_1" ></MenuItem>
-            <MenuItem Header="Регистрация" FontSize="22" Click="MenuItem_Click_2" ></MenuItem>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Rectangle HorizontalAlignment="Center" Height="101" VerticalAlignment="Center" Width="1022" Fill="#FFA9A8EE" />
+            <Label Content="Библиотека" HorizontalAlignment="Left" Margin="115,19,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+            <Label Content="Управление данными библиотеки" HorizontalAlignment="Left" Margin="115,51,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18"/>
+        </Grid>
+        <Menu Margin="0,100,0,427">
+            <MenuItem Header="Книги" FontSize="22" Click="MenuItem_Click" Margin="30,0,0,0">
+            </MenuItem>
+            <MenuItem Header="Чиататели" FontSize="22" Click="MenuItem_Click_1" Margin="10,0,0,0" >
+            </MenuItem>
+            <MenuItem Header="Регистрация" FontSize="22" Click="MenuItem_Click_2" Margin="10,0,0,0" >
+            </MenuItem>
         </Menu>
-        <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" Margin="0,84,0,0">
-
-        </DataGrid>
-
+        <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" Margin="0,137,0,10" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" />
+        <Button x:Name="AddBtn" Content="Button" HorizontalAlignment="Left" Margin="876,107,0,0" VerticalAlignment="Top" Height="26" Width="114" Click="AddBtn_Click_1"/>
     </Grid>
 </Window>
