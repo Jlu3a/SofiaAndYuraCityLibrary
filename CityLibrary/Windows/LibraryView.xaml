@@ -9,9 +9,11 @@
         " Width="1000">
     <Grid>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
-            <Rectangle HorizontalAlignment="Center" Height="101" VerticalAlignment="Center" Width="1022" Fill="#FFA9A8EE" />
+            <Rectangle HorizontalAlignment="Center" Height="101" VerticalAlignment="Top" Width="1022" Fill="#FFA9A8EE" />
             <Label Content="Библиотека" HorizontalAlignment="Left" Margin="115,19,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
             <Label Content="Управление данными библиотеки" HorizontalAlignment="Left" Margin="115,51,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18"/>
+            <Image Margin="10,10,887,476" Source="/book.png" Stretch="Fill"/>
+
         </Grid>
         <Menu Margin="0,100,0,427">
             <MenuItem Header="Книги" FontSize="22" Click="MenuItem_Click" Margin="30,0,0,0">
@@ -22,6 +24,6 @@
             </MenuItem>
         </Menu>
         <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" Margin="0,137,0,10" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" />
-        <Button x:Name="AddBtn" Content="Button" HorizontalAlignment="Left" Margin="876,107,0,0" VerticalAlignment="Top" Height="26" Width="114" Click="AddBtn_Click_1"/>
+        <Button x:Name="AddBtn" Content="Добавить" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="820,99,0,0" VerticalAlignment="Top" Height="37" Width="125" Visibility="Hidden" Click="AddBtn_Click_1"/>
     </Grid>
 </Window>

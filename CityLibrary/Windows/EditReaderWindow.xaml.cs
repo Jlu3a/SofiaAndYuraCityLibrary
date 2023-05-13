@@ -22,10 +22,10 @@ namespace CityLibrary.Windows
         public EditReaderWindow(Reader selectReader)
         {
             InitializeComponent();
-            //TxtNumber.Text = selectReader.ReaderTicketNumber.ToString();
-            //TxtFullName.Text = selectReader.FullName.ToString();
-            //TxtAddress.Text = selectReader.Address;
-            //TxtPhone.Text = selectReader.Phone;
+            TxtNumber.Text = selectReader.ReaderTicketNumber.ToString();
+            TxtFullName.Text = selectReader.FullName.ToString();
+            TxtAddress.Text = selectReader.Address;
+            TxtPhone.Text = selectReader.Phone;
 
         }
 

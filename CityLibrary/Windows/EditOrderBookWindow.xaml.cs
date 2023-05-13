@@ -22,11 +22,11 @@ namespace CityLibrary.Windows
         public EditOrderBookWindow(OrderBook selectedOrderBook)
         {
             InitializeComponent();
-            //TxtInvenarNumber.Text = selectedOrderBook.BookId.ToString();
-            //TxtNumber.Text = selectedOrderBook.ReaderTicketNumber.ToString();
-            //TxtDateOfIssue.Text = selectedOrderBook.DateOfIssue.ToString();
-            //TxtPlannedDate.Text = selectedOrderBook.PlannedReturnDate.ToString();
-            //TxtRealDate.Text = selectedOrderBook.RealReturnDate.ToString();
+            TxtInvenarNumber.Text = selectedOrderBook.BookId.ToString();
+            TxtNumber.Text = selectedOrderBook.ReaderTicketNumber.ToString();
+            TxtDateOfIssue.Text = selectedOrderBook.DateOfIssue.ToString();
+            TxtPlannedDate.Text = selectedOrderBook.PlannedReturnDate.ToString();
+            TxtRealDate.Text = selectedOrderBook.RealReturnDate.ToString();
         }
 
         private void BtnOtmena_Click(object sender, RoutedEventArgs e)

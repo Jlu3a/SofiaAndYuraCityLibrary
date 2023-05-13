@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data.Entity;
 
 namespace CityLibrary.Windows
 {
@@ -31,12 +32,77 @@ namespace CityLibrary.Windows
         {
             InitializeComponent();
             this.userRole = userRole;
+            
+
+        }
+
+        //Отображать и скрывать кнопку добавления
+        private void SetAddButtonVisibility(CurrentTableType currentTableType, int userRole)
+        {
+            if (userRole == 1) // Заведующий библиотекой
+            {
+                if (currentTableType == CurrentTableType.Books)
+                {
+                    // Полный доступ к Книгам
+                    AddBtn.Visibility = Visibility.Visible;
+                }
+                else if (currentTableType == CurrentTableType.Readers || currentTableType == CurrentTableType.Orders)
+                {
+                    // Только просмотр Читателей и Регистрации
+                    AddBtn.Visibility = Visibility.Hidden;
+                }
+            }
+            else // Библиотекари
+            {
+                if (currentTableType == CurrentTableType.Books)
+                {
+                    // Только просмотр Книг
+                    AddBtn.Visibility = Visibility.Hidden;
+                }
+                else if (currentTableType == CurrentTableType.Readers || currentTableType == CurrentTableType.Orders)
+                {
+                    // Полный доступ к Читателям и Регистрации
+                    AddBtn.Visibility = Visibility.Visible;
+                }
+            }
+        }
+        //Отображать и скрывать кнопки редактирования
+        private void SetEditButtonVisibility(CurrentTableType currentTableType, int userRole)
+        {
+            if (userRole == 1) // Заведующий библиотекой
+            {
+                if (currentTableType == CurrentTableType.Books)
+                {
+                    // Полный доступ к Книгам
+                    dataGrid.Columns[dataGrid.Columns.Count - 1].Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    // Скрыть кнопку редактирования для других таблиц
+                    dataGrid.Columns[dataGrid.Columns.Count - 1].Visibility = Visibility.Hidden;
+                }
+            }
+            else // Библиотекари
+            {
+                if (currentTableType == CurrentTableType.Books)
+                {
+                    // Полный доступ к Книгам
+                    dataGrid.Columns[dataGrid.Columns.Count - 1].Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    // Скрыть кнопку редактирования для других таблиц
+                    dataGrid.Columns[dataGrid.Columns.Count - 1].Visibility = Visibility.Visible;
+                }
+            }
         }
 
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
+            
             _currentTableType = CurrentTableType.Books;
+            SetAddButtonVisibility(_currentTableType, userRole);
             List<Book> books = _entities.Book.ToList();
             dataGrid.ItemsSource = books;
             dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
@@ -53,12 +119,15 @@ namespace CityLibrary.Windows
             buttonFactory.AddHandler(Button.ClickEvent, new RoutedEventHandler(EditButton_Click));
             editColumn.CellTemplate = new DataTemplate() { VisualTree = buttonFactory };
             dataGrid.Columns.Add(editColumn);
+            SetEditButtonVisibility(_currentTableType, userRole);
 
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
+           
             _currentTableType = CurrentTableType.Readers;
+            SetAddButtonVisibility(_currentTableType, userRole);
             List<Reader> readers = _entities.Reader.ToList();
             dataGrid.ItemsSource = readers;
             dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
@@ -76,11 +145,14 @@ namespace CityLibrary.Windows
             buttonFactory.AddHandler(Button.ClickEvent, new RoutedEventHandler(EditButton_Click));
             editColumn.CellTemplate = new DataTemplate() { VisualTree = buttonFactory };
             dataGrid.Columns.Add(editColumn);
+            SetEditButtonVisibility(_currentTableType, userRole);
         }
 
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
+            
             _currentTableType = CurrentTableType.Orders;
+            SetAddButtonVisibility(_currentTableType, userRole);
             List<OrderBook> orderBooks = _entities.OrderBook.ToList();
             dataGrid.ItemsSource = orderBooks;
             dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
@@ -99,6 +171,8 @@ namespace CityLibrary.Windows
             buttonFactory.AddHandler(Button.ClickEvent, new RoutedEventHandler(EditButton_Click));
             editColumn.CellTemplate = new DataTemplate() { VisualTree = buttonFactory };
             dataGrid.Columns.Add(editColumn);
+            SetEditButtonVisibility(_currentTableType, userRole);
+            
         }
 
         // Обработчик нажатия кнопки редактирования
@@ -111,23 +185,25 @@ namespace CityLibrary.Windows
             if (selectedItem is Book selectedBook)
             {
                 // Открываем окно редактирования книги
-                EditBookWindow editBookWindow = new EditBookWindow(selectedBook);
+                EditBookWindow editBookWindow = new EditBookWindow(selectedBook as Book);
                 editBookWindow.ShowDialog();
             }
             // Проверяем, является ли он читателем
             else if (selectedItem is Reader selectReader)
             {
                 // Открываем окно редактирования читателя
-                EditReaderWindow editReaderWindow = new EditReaderWindow(selectReader);
+                EditReaderWindow editReaderWindow = new EditReaderWindow(selectReader as Reader);
                 editReaderWindow.ShowDialog();
             }
             // Проверяем, является ли он заказом книги
             else if (selectedItem is OrderBook selectedOrderBook)
             {
                 // Открываем окно редактирования заказа книги
-                EditOrderBookWindow editOrderBookWindow = new EditOrderBookWindow(selectedOrderBook);
+                EditOrderBookWindow editOrderBookWindow = new EditOrderBookWindow(selectedOrderBook as OrderBook);
                 editOrderBookWindow.ShowDialog();
             }
+
+            
         }
 
 
@@ -156,6 +232,10 @@ namespace CityLibrary.Windows
                 EditOrderBookWindow addOrderBookWindow = new EditOrderBookWindow(null);
                 addOrderBookWindow.ShowDialog();
             }
+
         }
+
+
+       
     }
 }
