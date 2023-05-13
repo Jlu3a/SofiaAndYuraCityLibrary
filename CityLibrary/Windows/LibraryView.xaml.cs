@@ -120,6 +120,7 @@ namespace CityLibrary.Windows
             editColumn.CellTemplate = new DataTemplate() { VisualTree = buttonFactory };
             dataGrid.Columns.Add(editColumn);
             SetEditButtonVisibility(_currentTableType, userRole);
+           
 
         }
 
@@ -187,6 +188,7 @@ namespace CityLibrary.Windows
                 // Открываем окно редактирования книги
                 EditBookWindow editBookWindow = new EditBookWindow(selectedBook as Book);
                 editBookWindow.ShowDialog();
+                _entities.SaveChanges();
             }
             // Проверяем, является ли он читателем
             else if (selectedItem is Reader selectReader)
