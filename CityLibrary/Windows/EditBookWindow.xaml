@@ -9,7 +9,7 @@
     <Grid>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
             <Rectangle HorizontalAlignment="Center" Height="101" VerticalAlignment="Top" Width="500" Fill="#FFA9A8EE" />
-            <Image Margin="10,10,387,296" Source="/Sourse/img/book.png" Stretch="Fill"/>
+            <Image Margin="10,10,387,296" Source="/book.png" Stretch="Fill"/>
             <Label Content="Библиотека" HorizontalAlignment="Left" Margin="115,19,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
             <Label Content="Редактирование книги" HorizontalAlignment="Left" Margin="115,51,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18"/>
 
