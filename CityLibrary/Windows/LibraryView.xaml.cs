@@ -239,7 +239,14 @@ namespace CityLibrary.Windows
 
         }
 
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            //здесь будет таблица книги на руках
+        }
 
-       
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+            //здесь будет таблица популярные книги
+        }
     }
 }
