@@ -276,79 +276,124 @@ namespace CityLibrary.Windows
 		}
 		private void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
-			//здесь будет таблица книги на руках
+            //здесь будет таблица книги на руках
             ClearBtnActMenuItems();
-			_currentTableType = CurrentTableType.Orders;
-			SetAddButtonVisibility(_currentTableType, userRole);
-			MenuItem3.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
+            _currentTableType = CurrentTableType.Orders;
+            SetAddButtonVisibility(_currentTableType, userRole);
+            MenuItem3.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
 
-			var orders = _entities.OrderBook.ToList();
+            var orders = _entities.OrderBook.ToList();
 
-			// Группируем заказы по BookId и считаем количество прочтений для каждой книги
-            
-			List<BookPopularity> book = new List<BookPopularity>();
-			List<ReaderNow> reader = new List<ReaderNow>();
-			List<OrderNow> orderfNows = new List<OrderNow>();
-			List<BookOnHands> booksOnHands = new List<BookOnHands>();
-            booksOnHands = null;
+            // Группируем заказы по BookId и считаем количество прочтений для каждой книги
 
-			book = orders.OrderBy(c => c.RealReturnDate == null)
-				.GroupBy(ob => ob.BookId)
-				.Select(g => new BookPopularity
-				{
-					BookName = g.FirstOrDefault()?.Book.BookName,
-					Author = g.FirstOrDefault()?.Book.Author
-				})
-				.ToList();
+            List<BookPopularity> book = new List<BookPopularity>();
+            List<ReaderNow> reader = new List<ReaderNow>();
+            List<OrderNow> orderfNows = new List<OrderNow>();
+            List<BookOnHands> booksOnHands = new List<BookOnHands>();
 
-            reader = orders.OrderBy(c => c.RealReturnDate == null)
-				.GroupBy(ob => ob.BookId)
-                .Select(g => new ReaderNow
+            booksOnHands = orders.Where(ob => ob.RealReturnDate == null)
+                .Select(ob => new BookOnHands
                 {
-                    FullName = g.FirstOrDefault()?.Reader.FullName,
-					Address = g.FirstOrDefault()?.Reader.Address
+                    BookName = ob.Book.BookName,
+                    Author = ob.Book.Author,
+                    FullName = ob.Reader.FullName,
+                    Address = ob.Reader.Address,
+                    PlanedDataTime = ob.PlannedReturnDate,
+                    DateOfIssue = ob.DateOfIssue
                 })
-				.ToList();
+                .OrderByDescending(x => x.DateOfIssue)
+                .ToList();
 
-			orderfNows = orders.OrderBy(c => c.RealReturnDate == null)
-				.GroupBy(ob => ob.BookId)
-	            .Select(g => new OrderNow
-				{
-					PlanedDataTime = DateTime.Parse(g.FirstOrDefault()?.PlannedReturnDate.ToString()),
-					DateOfIssue = DateTime.Parse( g.FirstOrDefault()?.DateOfIssue.ToString())
-	            })
-	            .ToList();
-            
-			booksOnHands = orders
-				.Select(ob => new BookOnHands
-				{
-					BookName = ob.Book.BookName,
-					Author = ob.Book.Author,
-					FullName = ob.Reader.FullName,
-					Address = ob.Reader.Address,
-					PlanedDataTime = ob.PlannedReturnDate,
-					DateOfIssue = ob.DateOfIssue
-				})
-				.OrderByDescending(x => x.DateOfIssue)
-				.ToList();
+            dataGrid.CanUserAddRows = false;
+            AddBtn.Visibility = Visibility.Hidden;
 
-			dataGrid.CanUserAddRows = false;
-			AddBtn.Visibility = Visibility.Hidden;
-
-			dataGrid.ItemsSource = booksOnHands;
-			dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
-			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Название книги", Binding = new Binding("BookName") });
-			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Автор", Binding = new Binding("Author") });
-			dataGrid.Columns.Add(new DataGridTextColumn { Header = "ФИО читателя", Binding = new Binding("FullName") });
-			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Адрес", Binding = new Binding("Address") });
-			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Плановая дата возврата", Binding = new Binding("PlanedDataTime") { StringFormat = "dd.MM.yyyy" } });
-			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Дата выдачи", Binding = new Binding("DateOfIssue") { StringFormat = "dd.MM.yyyy" } });
+            dataGrid.ItemsSource = booksOnHands;
+            dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
+            dataGrid.Columns.Add(new DataGridTextColumn { Header = "Название книги", Binding = new Binding("BookName") });
+            dataGrid.Columns.Add(new DataGridTextColumn { Header = "Автор", Binding = new Binding("Author") });
+            dataGrid.Columns.Add(new DataGridTextColumn { Header = "ФИО читателя", Binding = new Binding("FullName") });
+            dataGrid.Columns.Add(new DataGridTextColumn { Header = "Адрес", Binding = new Binding("Address") });
+            dataGrid.Columns.Add(new DataGridTextColumn { Header = "Плановая дата возврата", Binding = new Binding("PlanedDataTime") { StringFormat = "dd.MM.yyyy" } });
+            dataGrid.Columns.Add(new DataGridTextColumn { Header = "Дата выдачи", Binding = new Binding("DateOfIssue") { StringFormat = "dd.MM.yyyy" } });
 
 
-			// Присваиваем список объектов BookPopularity источнику данных для DataGrid
+            // Присваиваем список объектов BookPopularity источнику данных для DataGrid
 
-			SetEditButtonVisibility(_currentTableType, userRole);
-		}
+            SetEditButtonVisibility(_currentTableType, userRole);
+
+            ////здесь будет таблица книги на руках
+            //         ClearBtnActMenuItems();
+            //_currentTableType = CurrentTableType.Orders;
+            //SetAddButtonVisibility(_currentTableType, userRole);
+            //MenuItem3.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
+
+            //var orders = _entities.OrderBook.ToList();
+
+            //// Группируем заказы по BookId и считаем количество прочтений для каждой книги
+
+            //List<BookPopularity> book = new List<BookPopularity>();
+            //List<ReaderNow> reader = new List<ReaderNow>();
+            //List<OrderNow> orderfNows = new List<OrderNow>();
+            //List<BookOnHands> booksOnHands = new List<BookOnHands>();
+            //         booksOnHands = null;
+
+            //book = orders.OrderBy(c => c.RealReturnDate == null)
+            //	.GroupBy(ob => ob.BookId)
+            //	.Select(g => new BookPopularity
+            //	{
+            //		BookName = g.FirstOrDefault()?.Book.BookName,
+            //		Author = g.FirstOrDefault()?.Book.Author
+            //	})
+            //	.ToList();
+
+            //         reader = orders.OrderBy(c => c.RealReturnDate == null)
+            //	.GroupBy(ob => ob.BookId)
+            //             .Select(g => new ReaderNow
+            //             {
+            //                 FullName = g.FirstOrDefault()?.Reader.FullName,
+            //		Address = g.FirstOrDefault()?.Reader.Address
+            //             })
+            //	.ToList();
+
+            //orderfNows = orders.OrderBy(c => c.RealReturnDate == null)
+            //	.GroupBy(ob => ob.BookId)
+            //          .Select(g => new OrderNow
+            //	{
+            //		PlanedDataTime = DateTime.Parse(g.FirstOrDefault()?.PlannedReturnDate.ToString()),
+            //		DateOfIssue = DateTime.Parse( g.FirstOrDefault()?.DateOfIssue.ToString())
+            //          })
+            //          .ToList();
+
+            //booksOnHands = orders
+            //	.Select(ob => new BookOnHands
+            //	{
+            //		BookName = ob.Book.BookName,
+            //		Author = ob.Book.Author,
+            //		FullName = ob.Reader.FullName,
+            //		Address = ob.Reader.Address,
+            //		PlanedDataTime = ob.PlannedReturnDate,
+            //		DateOfIssue = ob.DateOfIssue
+            //	})
+            //	.OrderByDescending(x => x.DateOfIssue)
+            //	.ToList();
+
+            //dataGrid.CanUserAddRows = false;
+            //AddBtn.Visibility = Visibility.Hidden;
+
+            //dataGrid.ItemsSource = booksOnHands;
+            //dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
+            //dataGrid.Columns.Add(new DataGridTextColumn { Header = "Название книги", Binding = new Binding("BookName") });
+            //dataGrid.Columns.Add(new DataGridTextColumn { Header = "Автор", Binding = new Binding("Author") });
+            //dataGrid.Columns.Add(new DataGridTextColumn { Header = "ФИО читателя", Binding = new Binding("FullName") });
+            //dataGrid.Columns.Add(new DataGridTextColumn { Header = "Адрес", Binding = new Binding("Address") });
+            //dataGrid.Columns.Add(new DataGridTextColumn { Header = "Плановая дата возврата", Binding = new Binding("PlanedDataTime") { StringFormat = "dd.MM.yyyy" } });
+            //dataGrid.Columns.Add(new DataGridTextColumn { Header = "Дата выдачи", Binding = new Binding("DateOfIssue") { StringFormat = "dd.MM.yyyy" } });
+
+
+            //// Присваиваем список объектов BookPopularity источнику данных для DataGrid
+
+            //SetEditButtonVisibility(_currentTableType, userRole);
+        }
 
 		private void MenuItem_Click_4(object sender, RoutedEventArgs e)
 		{
