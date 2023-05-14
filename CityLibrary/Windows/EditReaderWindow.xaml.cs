@@ -19,23 +19,47 @@ namespace CityLibrary.Windows
     /// </summary>
     public partial class EditReaderWindow : Window
     {
+        CityLibraryEntities1 _context = new CityLibraryEntities1();
+        private Reader _reader;
         public EditReaderWindow(Reader selectReader)
         {
             InitializeComponent();
-            TxtNumber.Text = selectReader.ReaderTicketNumber.ToString();
-            TxtFullName.Text = selectReader.FullName.ToString();
-            TxtAddress.Text = selectReader.Address;
-            TxtPhone.Text = selectReader.Phone;
+            if (selectReader != null)
+            {
+                _reader = selectReader;
+                TxtNumber.Text = selectReader.ReaderTicketNumber.ToString();
+                TxtFullName.Text = selectReader.FullName.ToString();
+                TxtAddress.Text = selectReader.Address;
+                TxtPhone.Text = selectReader.Phone;
+            }
 
         }
 
-        private void BtnOtmena_Click(object sender, RoutedEventArgs e)
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Вы уверены что хотите отменить редактирование?", "Отмена", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            var readerToDelete = _context.Reader.FirstOrDefault(b => b.ReaderTicketNumber == _reader.ReaderTicketNumber);
+            // Если книга найдена в базе данных, удаляем ее
+            if (readerToDelete != null)
             {
-                this.Close();
+                MessageBoxResult result = MessageBox.Show("Вы уверены что хотите удалить читателя?", "Удаление читателя", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Подключаем книгу к контексту базы данных
+                    _context.Reader.Attach(readerToDelete);
+                    // Удаляем книгу из базы данных
+                    _context.Reader.Remove(readerToDelete);
+                    // Сохраняем изменения
+                    _context.SaveChanges();
+                    MessageBox.Show("Читатель успешно удален!");
+                    this.Close();
+                }
             }
+            else
+            {
+                MessageBox.Show("Читатель не найден!");
+            }
+
+
         }
     }
 }

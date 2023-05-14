@@ -199,7 +199,9 @@
           <NavigationProperty Name="User" Relationship="Self.FK_User_UserRole1" FromRole="UserRole" ToRole="User" />
         </EntityType>
         <Association Name="FK_OrderBook_Book">
-          <End Role="Book" Type="Self.Book" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="OrderBook" Type="Self.OrderBook" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Book">
@@ -211,7 +213,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderBook_Reader">
-          <End Role="Reader" Type="Self.Reader" Multiplicity="1" />
+          <End Role="Reader" Type="Self.Reader" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="OrderBook" Type="Self.OrderBook" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Reader">

@@ -38,12 +38,28 @@ namespace CityLibrary.Windows
             
         }
 
-        private void BtnOtmena_Click(object sender, RoutedEventArgs e)
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Вы уверены что хотите отменить редактирование?", "Отмена", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            var bookToDelete = _context.Book.FirstOrDefault(b => b.BookId == _book.BookId);
+            // Если книга найдена в базе данных, удаляем ее
+            if (bookToDelete != null)
             {
-                this.Close();
+                MessageBoxResult result = MessageBox.Show("Вы уверены что хотите удалить книгу?", "Удаление книги", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Подключаем книгу к контексту базы данных
+                    _context.Book.Attach(bookToDelete);
+                    // Удаляем книгу из базы данных
+                    _context.Book.Remove(bookToDelete);
+                    // Сохраняем изменения
+                    _context.SaveChanges();
+                    MessageBox.Show("Книга успешно удалена!");
+                    this.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Книга не найдена!");
             }
         }
 
