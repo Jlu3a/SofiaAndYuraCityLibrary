@@ -243,8 +243,9 @@ namespace CityLibrary.Windows
                 EditOrderBookWindow addOrderBookWindow = new EditOrderBookWindow(null);
                 addOrderBookWindow.ShowDialog();
             }
+			_entities.SaveChanges();
 
-        }
+		}
 
 		private class BookOnHands
 		{
@@ -423,7 +424,6 @@ namespace CityLibrary.Windows
 			dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
 			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Название книги", Binding = new Binding("BookName") });
 			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Кол-во прочтений ", Binding = new Binding("Count") });
-
 
 			// Присваиваем список объектов BookPopularity источнику данных для DataGrid
 		}
