@@ -269,25 +269,28 @@ namespace CityLibrary.Windows
 
         private void MenuItem_Click_4(object sender, RoutedEventArgs e)
         {
-			//здесь будет таблица популярные книги
+            //здесь будет таблица популярные книги
 
-            ClearBtnActMenuItems();
-			_currentTableType = CurrentTableType.Orders;
-			SetAddButtonVisibility(_currentTableType, userRole);
-			List<OrderBook> orderBooks = _entities.OrderBook.ToList();
-			MenuItem4.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
+            PopularityBooksWindow1 window1 = new PopularityBooksWindow1();
+            window1.ShowDialog();   
+
+   //         ClearBtnActMenuItems();
+			//_currentTableType = CurrentTableType.Orders;
+			//SetAddButtonVisibility(_currentTableType, userRole);
+			//List<OrderBook> orderBooks = _entities.OrderBook.ToList();
+			//MenuItem4.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
 
 
-			dataGrid.ItemsSource = orderBooks;
-			dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
-			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Инвентарный номер ", Binding = new Binding("BookId") });
-			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Номер читательского билета", Binding = new Binding("ReaderTicketNumber") });
-			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Дата выдачи", Binding = new Binding("DateOfIssue  ") { StringFormat = "dd.MM.yyyy" } });
-			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Плановая дата возврата", Binding = new Binding("PlannedReturnDate") { StringFormat = "dd.MM.yyyy" } });
-			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Реальная дата возврата", Binding = new Binding("RealReturnDate") { StringFormat = "dd.MM.yyyy" } });
-			dataGrid.CanUserAddRows = false;
+			//dataGrid.ItemsSource = orderBooks;
+			//dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
+			//dataGrid.Columns.Add(new DataGridTextColumn { Header = "Инвентарный номер ", Binding = new Binding("BookId") });
+			//dataGrid.Columns.Add(new DataGridTextColumn { Header = "Номер читательского билета", Binding = new Binding("ReaderTicketNumber") });
+			//dataGrid.Columns.Add(new DataGridTextColumn { Header = "Дата выдачи", Binding = new Binding("DateOfIssue  ") { StringFormat = "dd.MM.yyyy" } });
+			//dataGrid.Columns.Add(new DataGridTextColumn { Header = "Плановая дата возврата", Binding = new Binding("PlannedReturnDate") { StringFormat = "dd.MM.yyyy" } });
+			//dataGrid.Columns.Add(new DataGridTextColumn { Header = "Реальная дата возврата", Binding = new Binding("RealReturnDate") { StringFormat = "dd.MM.yyyy" } });
+			//dataGrid.CanUserAddRows = false;
 
-			SetEditButtonVisibility(_currentTableType, userRole);
+			//SetEditButtonVisibility(_currentTableType, userRole);
 		}
         private void ClearBtnActMenuItems()
         {
