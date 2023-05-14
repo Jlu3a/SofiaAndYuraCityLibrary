@@ -32,9 +32,14 @@ namespace CityLibrary.Windows
                 _orderBook = selectedOrderBook;
                 TxtInvenarNumber.Text = selectedOrderBook.BookId.ToString();
                 TxtNumber.Text = selectedOrderBook.ReaderTicketNumber.ToString();
+                TxtDateOfIssue.Text = selectedOrderBook.DateOfIssue.ToString();
+                TxtPlannedDate.Text = selectedOrderBook.PlannedReturnDate.ToString();
+                TxtRealDate.Text = selectedOrderBook.RealReturnDate.ToString();
+            }
+            else
+            {
                 TxtDateOfIssue.Text = DateTime.Now.ToString();
                 TxtPlannedDate.Text = DateTime.Now.AddMonths(1).ToString();
-                TxtRealDate.Text = selectedOrderBook.RealReturnDate.ToString();
             }
             
         }
