@@ -32,8 +32,6 @@ namespace CityLibrary.Windows
         {
             InitializeComponent();
             this.userRole = userRole;
-            
-
         }
 
         //Отображать и скрывать кнопку добавления
@@ -100,11 +98,12 @@ namespace CityLibrary.Windows
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            
+            ClearBtnActMenuItems();
             _currentTableType = CurrentTableType.Books;
             SetAddButtonVisibility(_currentTableType, userRole);
             List<Book> books = _entities.Book.ToList();
-            dataGrid.ItemsSource = books;
+			MenuItem.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
+			dataGrid.ItemsSource = books;
             dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
             dataGrid.Columns.Add(new DataGridTextColumn { Header = "Название", Binding = new Binding("BookName")  } );
             dataGrid.Columns.Add(new DataGridTextColumn { Header = "Автор", Binding = new Binding("Author") });
@@ -126,11 +125,12 @@ namespace CityLibrary.Windows
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-           
+            ClearBtnActMenuItems();  
             _currentTableType = CurrentTableType.Readers;
             SetAddButtonVisibility(_currentTableType, userRole);
             List<Reader> readers = _entities.Reader.ToList();
-            dataGrid.ItemsSource = readers;
+			MenuItem1.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
+			dataGrid.ItemsSource = readers;
             dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
             dataGrid.Columns.Add(new DataGridTextColumn { Header = "Номер читательского билета", Binding = new Binding("ReaderTicketNumber") });
             dataGrid.Columns.Add(new DataGridTextColumn { Header = "ФИО", Binding = new Binding("FullName") });
@@ -151,11 +151,12 @@ namespace CityLibrary.Windows
 
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
-            
+            ClearBtnActMenuItems();
             _currentTableType = CurrentTableType.Orders;
             SetAddButtonVisibility(_currentTableType, userRole);
             List<OrderBook> orderBooks = _entities.OrderBook.ToList();
-            dataGrid.ItemsSource = orderBooks;
+			MenuItem2.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
+			dataGrid.ItemsSource = orderBooks;
             dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
             dataGrid.Columns.Add(new DataGridTextColumn { Header = "Инвентарный номер ", Binding = new Binding("BookId") });
             dataGrid.Columns.Add(new DataGridTextColumn { Header = "Номер читательского билета", Binding = new Binding("ReaderTicketNumber") });
@@ -176,8 +177,8 @@ namespace CityLibrary.Windows
             
         }
 
-        // Обработчик нажатия кнопки редактирования
-        private void EditButton_Click(object sender, RoutedEventArgs e)
+		// Обработчик нажатия кнопки редактирования
+		private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             // Получаем выбранный элемент
             object selectedItem = dataGrid.SelectedItem;
@@ -241,12 +242,60 @@ namespace CityLibrary.Windows
 
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
-            //здесь будет таблица книги на руках
-        }
+			//здесь будет таблица книги на руках
+            ClearBtnActMenuItems();
+			_currentTableType = CurrentTableType.Orders;
+			SetAddButtonVisibility(_currentTableType, userRole);
+			List<OrderBook> orderBooks = _entities.OrderBook.ToList();
+			MenuItem3.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
+			/*
+            for(int i = orderBooks.Count; i >= 0; i --)
+            {
+                OrderBook _orderId = _entities.OrderBook.FirstOrDefault(o => o.BookId == orderBooks[i].BookId);
+                
+			}*/
+
+			dataGrid.ItemsSource = orderBooks;
+			dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
+			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Инвентарный номер ", Binding = new Binding("BookId") });
+			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Номер читательского билета", Binding = new Binding("ReaderTicketNumber") });
+			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Дата выдачи", Binding = new Binding("DateOfIssue  ") { StringFormat = "dd.MM.yyyy" } });
+			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Плановая дата возврата", Binding = new Binding("PlannedReturnDate") { StringFormat = "dd.MM.yyyy" } });
+			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Реальная дата возврата", Binding = new Binding("RealReturnDate") { StringFormat = "dd.MM.yyyy" } });
+			dataGrid.CanUserAddRows = false;
+
+			SetEditButtonVisibility(_currentTableType, userRole);
+		}
 
         private void MenuItem_Click_4(object sender, RoutedEventArgs e)
         {
-            //здесь будет таблица популярные книги
-        }
+			//здесь будет таблица популярные книги
+
+            ClearBtnActMenuItems();
+			_currentTableType = CurrentTableType.Orders;
+			SetAddButtonVisibility(_currentTableType, userRole);
+			List<OrderBook> orderBooks = _entities.OrderBook.ToList();
+			MenuItem4.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
+
+
+			dataGrid.ItemsSource = orderBooks;
+			dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
+			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Инвентарный номер ", Binding = new Binding("BookId") });
+			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Номер читательского билета", Binding = new Binding("ReaderTicketNumber") });
+			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Дата выдачи", Binding = new Binding("DateOfIssue  ") { StringFormat = "dd.MM.yyyy" } });
+			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Плановая дата возврата", Binding = new Binding("PlannedReturnDate") { StringFormat = "dd.MM.yyyy" } });
+			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Реальная дата возврата", Binding = new Binding("RealReturnDate") { StringFormat = "dd.MM.yyyy" } });
+			dataGrid.CanUserAddRows = false;
+
+			SetEditButtonVisibility(_currentTableType, userRole);
+		}
+        private void ClearBtnActMenuItems()
+        {
+			MenuItem.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+			MenuItem1.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+			MenuItem2.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+			MenuItem3.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+			MenuItem4.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+		}
     }
 }

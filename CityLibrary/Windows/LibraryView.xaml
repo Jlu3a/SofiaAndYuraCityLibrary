@@ -16,15 +16,15 @@
 
         </Grid>
         <Menu Margin="0,100,0,427">
-            <MenuItem Header="Книги" FontSize="22" Click="MenuItem_Click" Margin="30,0,0,0">
+            <MenuItem x:Name="MenuItem" Header="Книги" FontSize="22" Click="MenuItem_Click" Margin="30,0,0,0">
             </MenuItem>
-            <MenuItem Header="Чиататели" FontSize="22" Click="MenuItem_Click_1" Margin="10,0,0,0" >
+            <MenuItem x:Name="MenuItem1" Header="Чиататели" FontSize="22" Click="MenuItem_Click_1" Margin="10,0,0,0" >
             </MenuItem>
-            <MenuItem Header="Регистрация" FontSize="22" Click="MenuItem_Click_2" Margin="10,0,0,0" >
+            <MenuItem x:Name="MenuItem2" Header="Регистрация" FontSize="22" Click="MenuItem_Click_2" Margin="10,0,0,0" >
             </MenuItem>
-            <MenuItem Header="Книги на руках" FontSize="22" Click="MenuItem_Click_3" Margin="10,0,0,0" >
+            <MenuItem x:Name="MenuItem3" Header="Книги на руках" FontSize="22" Click="MenuItem_Click_3" Margin="10,0,0,0" >
             </MenuItem>
-            <MenuItem Header="Популярные книги" FontSize="22" Click="MenuItem_Click_4" Margin="10,0,0,0" >
+            <MenuItem x:Name="MenuItem4" Header="Популярные книги" FontSize="22" Click="MenuItem_Click_4" Margin="10,0,0,0" >
             </MenuItem>
         </Menu>
         <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" Margin="0,137,0,10" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" />
