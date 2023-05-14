@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CityLibrary.Windows"
         mc:Ignorable="d"
-        Title="EditReaderWindow" Height="470" Width="550">
+        Title="EditReaderWindow" Height="470" Width="550" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
             <Rectangle HorizontalAlignment="Center" Height="101" VerticalAlignment="Top" Width="582" Fill="#FFA9A8EE" Margin="0,-1,0,0" />
             <Label Content="Библиотека" HorizontalAlignment="Left" Margin="111,19,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
             <Label Content="Редактирование данных читателя" HorizontalAlignment="Left" Margin="113,51,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18"/>
-            <Image Margin="10,10,437,346" Source="/book.png" Stretch="Fill"/>
+            <Image Margin="10,10,437,346" Source="/Sourse/img/book.png" Stretch="Fill"/>
         </Grid>
         <Grid Margin="0,100,0,0">
             <Grid.RowDefinitions>
