@@ -19,23 +19,53 @@ namespace CityLibrary.Windows
     /// </summary>
     public partial class EditOrderBookWindow : Window
     {
+        CityLibraryEntities1 _context = new CityLibraryEntities1();
+        private OrderBook _orderBook;
+ 
         public EditOrderBookWindow(OrderBook selectedOrderBook)
         {
             InitializeComponent();
-            TxtInvenarNumber.Text = selectedOrderBook.BookId.ToString();
-            TxtNumber.Text = selectedOrderBook.ReaderTicketNumber.ToString();
-            TxtDateOfIssue.Text = selectedOrderBook.DateOfIssue.ToString();
-            TxtPlannedDate.Text = selectedOrderBook.PlannedReturnDate.ToString();
-            TxtRealDate.Text = selectedOrderBook.RealReturnDate.ToString();
+
+            if (selectedOrderBook != null)
+            {
+                _orderBook = selectedOrderBook;
+                TxtInvenarNumber.Text = selectedOrderBook.BookId.ToString();
+                TxtNumber.Text = selectedOrderBook.ReaderTicketNumber.ToString();
+                TxtDateOfIssue.Text = selectedOrderBook.DateOfIssue.ToString();
+                TxtPlannedDate.Text = selectedOrderBook.PlannedReturnDate.ToString();
+                TxtRealDate.Text = selectedOrderBook.RealReturnDate.ToString();
+            }
+            
         }
 
-        private void BtnOtmena_Click(object sender, RoutedEventArgs e)
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Вы уверены что хотите отменить редактирование?", "Отмена", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            var orderToDelete = _context.OrderBook.FirstOrDefault(b => b.BookId == _orderBook.BookId);
+            // Если книга найдена в базе данных, удаляем ее
+            if (orderToDelete != null)
             {
-                this.Close();
+                MessageBoxResult result = MessageBox.Show("Вы уверены что хотите удалить регистрацию?", "Удаление регистрации", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Подключаем книгу к контексту базы данных
+                    _context.OrderBook.Attach(orderToDelete);
+                    // Удаляем книгу из базы данных
+                    _context.OrderBook.Remove(orderToDelete);
+                    // Сохраняем изменения
+                    _context.SaveChanges();
+                    MessageBox.Show("Регистрация успешно удалена!");
+                    this.Close();
+                }
             }
+            else
+            {
+                MessageBox.Show("Регистрация не найдена!");
+            }
+        }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

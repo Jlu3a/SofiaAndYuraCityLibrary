@@ -38,12 +38,28 @@ namespace CityLibrary.Windows
             
         }
 
-        private void BtnOtmena_Click(object sender, RoutedEventArgs e)
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Вы уверены что хотите отменить редактирование?", "Отмена", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            var bookToDelete = _context.Book.FirstOrDefault(b => b.BookId == _book.BookId);
+            // Если книга найдена в базе данных, удаляем ее
+            if (bookToDelete != null)
             {
-                this.Close();
+                MessageBoxResult result = MessageBox.Show("Вы уверены что хотите удалить книгу?", "Удаление книги", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Подключаем книгу к контексту базы данных
+                    _context.Book.Attach(bookToDelete);
+                    // Удаляем книгу из базы данных
+                    _context.Book.Remove(bookToDelete);
+                    // Сохраняем изменения
+                    _context.SaveChanges();
+                    MessageBox.Show("Книга успешно удалена!");
+                    this.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Книга не найдена!");
             }
         }
 
@@ -52,51 +68,34 @@ namespace CityLibrary.Windows
 
             if (_book != null && _book.BookId > 0)
             {
-                 // Обновляем поля существующего товара
+                // Обновляем поля существующей книги
                 _book.BookName = TxtBookName.Text;
                 _book.Author = TxtAuthor.Text;
                 _book.BookCount = int.Parse(TxtBookCount.Text);
 
                 MessageBox.Show("Изменения успешно сохранены!");
-                this.Close();
-
             }
             else
             {
-                // Создаем новый объект товара
+                // Создаем новую книгу
                 var newBook = new Book
                 {
                     BookName = TxtBookName.Text,
                     Author = TxtAuthor.Text,
                     BookCount = int.Parse(TxtBookCount.Text),
                 };
-                // Добавляем новый товар в базу данных и сохраняем изменения
+
+                // Добавляем новую книгу в базу данных
                 _context.Book.Add(newBook);
-                _context.SaveChanges();
-                MessageBox.Show("Товар успешно добавлен!");
-                this.Close();
-                
+
+                MessageBox.Show("Книга успешно добавлена!");
             }
 
-            //// Если книга уже существует, обновляем ее в БД
-            //// Иначе добавляем новую книгу
-            //if (_book.BookId > 0)
-            //{
+            // Сохраняем изменения в базе данных
+            _context.SaveChanges();
 
-            //}
-            //else
-            //{
-            //    // Сохраняем данные из полей формы в объект книги
-            //    _book.BookName = TxtBookName.Text;
-            //    _book.Author = TxtAuthor.Text;
-            //    _book.BookCount = int.Parse(TxtBookCount.Text);
-            //    _context.Book.Add(_book);
-
-            //}
-
-            //_context.SaveChanges();
-
-            //this.Close();
+            // Закрываем окно
+            this.Close();
         }
     }
 }
