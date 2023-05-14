@@ -80,7 +80,20 @@ namespace CityLibrary.Windows
                 _orderBook.PlannedReturnDate = DateTime.Parse(TxtPlannedDate.Text);
                 _orderBook.RealReturnDate = DateTime.Parse(TxtRealDate.Text);
 
-                MessageBox.Show("Изменения успешно сохранены!");
+				if (TxtRealDate.Text != null || TxtRealDate.Text != "")
+				{
+					var book = _context.Book.FirstOrDefault(b => b.BookId == _orderBook.BookId);
+					if (book != null)
+					{
+						if (_orderBook.RealReturnDate != null)
+						{
+							book.BookCount += 1;
+							_context.SaveChanges();
+						}
+					}
+				}
+
+				MessageBox.Show("Изменения успешно сохранены!");
             }
             else
             {
@@ -107,7 +120,21 @@ namespace CityLibrary.Windows
 					};
 					_context.OrderBook.Add(newOrder);
 				}
-                MessageBox.Show("Регистрация успешно добавлена!");
+
+				if (TxtRealDate.Text == null || TxtRealDate.Text == "")
+				{
+					var book = _context.Book.FirstOrDefault(b => b.BookId == _orderBook.BookId);
+					if (book != null)
+					{
+						if (_orderBook.RealReturnDate == null)
+						{
+							book.BookCount -= 1;
+							_context.SaveChanges();
+						}
+					}
+				}
+
+				MessageBox.Show("Регистрация успешно добавлена!");
             }
             _context.SaveChanges();
             this.Close();
