@@ -12,7 +12,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Data.Entity;
 using static CityLibrary.Windows.PopularityBooksWindow1;
 using System.Runtime.Remoting.Contexts;
 using System.ComponentModel.DataAnnotations;
@@ -202,14 +201,16 @@ namespace CityLibrary.Windows
                 // Открываем окно редактирования читателя
                 EditReaderWindow editReaderWindow = new EditReaderWindow(selectReader as Reader, 0);
                 editReaderWindow.ShowDialog();
-            }
+				_entities.SaveChanges();
+			}
             // Проверяем, является ли он заказом книги
             else if (selectedItem is OrderBook selectedOrderBook)
             {
                 // Открываем окно редактирования заказа книги
                 EditOrderBookWindow editOrderBookWindow = new EditOrderBookWindow(selectedOrderBook as OrderBook);
-                editOrderBookWindow.ShowDialog();
-            }
+                editOrderBookWindow.ShowDialog(); 
+                _entities.SaveChanges();
+			}
 
             
         }
@@ -284,12 +285,14 @@ namespace CityLibrary.Windows
 			var orders = _entities.OrderBook.ToList();
 
 			// Группируем заказы по BookId и считаем количество прочтений для каждой книги
-
+            
 			List<BookPopularity> book = new List<BookPopularity>();
 			List<ReaderNow> reader = new List<ReaderNow>();
 			List<OrderNow> orderfNows = new List<OrderNow>();
+			List<BookOnHands> booksOnHands = new List<BookOnHands>();
+            booksOnHands = null;
 
-			book = orders
+			book = orders.OrderBy(c => c.RealReturnDate == null)
 				.GroupBy(ob => ob.BookId)
 				.Select(g => new BookPopularity
 				{
@@ -298,8 +301,8 @@ namespace CityLibrary.Windows
 				})
 				.ToList();
 
-            reader = orders
-                .GroupBy(ob => ob.BookId)
+            reader = orders.OrderBy(c => c.RealReturnDate == null)
+				.GroupBy(ob => ob.BookId)
                 .Select(g => new ReaderNow
                 {
                     FullName = g.FirstOrDefault()?.Reader.FullName,
@@ -307,16 +310,16 @@ namespace CityLibrary.Windows
                 })
 				.ToList();
 
-			orderfNows = orders
-	            .GroupBy(ob => ob.BookId)
+			orderfNows = orders.OrderBy(c => c.RealReturnDate == null)
+				.GroupBy(ob => ob.BookId)
 	            .Select(g => new OrderNow
 				{
 					PlanedDataTime = DateTime.Parse(g.FirstOrDefault()?.PlannedReturnDate.ToString()),
 					DateOfIssue = DateTime.Parse( g.FirstOrDefault()?.DateOfIssue.ToString())
 	            })
 	            .ToList();
-
-			var booksOnHands = orders
+            
+			booksOnHands = orders
 				.Select(ob => new BookOnHands
 				{
 					BookName = ob.Book.BookName,
@@ -332,7 +335,7 @@ namespace CityLibrary.Windows
 			dataGrid.CanUserAddRows = false;
 			AddBtn.Visibility = Visibility.Hidden;
 
-			dataGrid.ItemsSource = booksOnHands.ToList();
+			dataGrid.ItemsSource = booksOnHands;
 			dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
 			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Название книги", Binding = new Binding("BookName") });
 			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Автор", Binding = new Binding("Author") });
