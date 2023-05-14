@@ -12,7 +12,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static CityLibrary.Windows.PopularityBooksWindow1;
 using System.Runtime.Remoting.Contexts;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
