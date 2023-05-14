@@ -36,6 +36,7 @@ namespace CityLibrary.Windows
 
         private void PopularityBooksWindow1_Loaded(object sender, RoutedEventArgs e)
         {
+
             // Получаем список заказов из базы данных
             var orders = _context.OrderBook.ToList();
 
