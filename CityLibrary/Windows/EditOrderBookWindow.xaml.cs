@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -83,17 +84,29 @@ namespace CityLibrary.Windows
             }
             else
             {
-                var newOrder = new OrderBook
+                if (TxtRealDate.Text == null || TxtRealDate.Text == "")
                 {
-                    BookId = int.Parse(TxtInvenarNumber.Text),
-                    ReaderTicketNumber = int.Parse(TxtNumber.Text),
-					DateOfIssue = DateTime.Parse(TxtDateOfIssue.Text),
-					PlannedReturnDate = DateTime.Parse(TxtPlannedDate.Text),
-					RealReturnDate = DateTime.Parse(TxtRealDate.Text)
-                };
-
-                _context.OrderBook.Add(newOrder);
-
+					var newOrder = new OrderBook
+					{
+						BookId = int.Parse(TxtInvenarNumber.Text),
+						ReaderTicketNumber = int.Parse(TxtNumber.Text),
+						DateOfIssue = DateTime.Parse(TxtDateOfIssue.Text),
+						PlannedReturnDate = DateTime.Parse(TxtPlannedDate.Text),
+					};
+					_context.OrderBook.Add(newOrder);
+				}
+                else
+                {
+					var newOrder = new OrderBook
+					{
+						BookId = int.Parse(TxtInvenarNumber.Text),
+						ReaderTicketNumber = int.Parse(TxtNumber.Text),
+						DateOfIssue = DateTime.Parse(TxtDateOfIssue.Text),
+						PlannedReturnDate = DateTime.Parse(TxtPlannedDate.Text),
+                        RealReturnDate = DateTime.Parse(TxtRealDate.Text)
+					};
+					_context.OrderBook.Add(newOrder);
+				}
                 MessageBox.Show("Регистрация успешно добавлена!");
             }
             _context.SaveChanges();
