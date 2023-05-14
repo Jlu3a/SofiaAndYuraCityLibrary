@@ -32,8 +32,8 @@ namespace CityLibrary.Windows
                 _orderBook = selectedOrderBook;
                 TxtInvenarNumber.Text = selectedOrderBook.BookId.ToString();
                 TxtNumber.Text = selectedOrderBook.ReaderTicketNumber.ToString();
-                TxtDateOfIssue.Text = selectedOrderBook.DateOfIssue.ToString();
-                TxtPlannedDate.Text = selectedOrderBook.PlannedReturnDate.ToString();
+                TxtDateOfIssue.Text = DateTime.Now.ToString();
+                TxtPlannedDate.Text = DateTime.Now.AddMonths(1).ToString();
                 TxtRealDate.Text = selectedOrderBook.RealReturnDate.ToString();
             }
             
@@ -82,9 +82,9 @@ namespace CityLibrary.Windows
                 {
                     BookId = int.Parse(TxtInvenarNumber.Text),
                     ReaderTicketNumber = int.Parse(TxtNumber.Text),
-                    DateOfIssue = DateTime.Now,
-                    PlannedReturnDate = DateTime.Now.AddMonths(1),
-                    RealReturnDate = DateTime.Parse(TxtRealDate.Text)
+					DateOfIssue = DateTime.Parse(TxtDateOfIssue.Text),
+					PlannedReturnDate = DateTime.Parse(TxtPlannedDate.Text),
+					RealReturnDate = DateTime.Parse(TxtRealDate.Text)
                 };
 
                 _context.OrderBook.Add(newOrder);
