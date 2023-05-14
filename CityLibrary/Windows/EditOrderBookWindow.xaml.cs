@@ -41,17 +41,13 @@ namespace CityLibrary.Windows
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             var orderToDelete = _context.OrderBook.FirstOrDefault(b => b.BookId == _orderBook.BookId);
-            // Если книга найдена в базе данных, удаляем ее
             if (orderToDelete != null)
             {
                 MessageBoxResult result = MessageBox.Show("Вы уверены что хотите удалить регистрацию?", "Удаление регистрации", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
-                    // Подключаем книгу к контексту базы данных
                     _context.OrderBook.Attach(orderToDelete);
-                    // Удаляем книгу из базы данных
                     _context.OrderBook.Remove(orderToDelete);
-                    // Сохраняем изменения
                     _context.SaveChanges();
                     MessageBox.Show("Регистрация успешно удалена!");
                     this.Close();

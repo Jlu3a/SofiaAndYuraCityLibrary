@@ -194,7 +194,7 @@ namespace CityLibrary.Windows
             else if (selectedItem is Reader selectReader)
             {
                 // Открываем окно редактирования читателя
-                EditReaderWindow editReaderWindow = new EditReaderWindow(selectReader as Reader);
+                EditReaderWindow editReaderWindow = new EditReaderWindow(selectReader as Reader, 0);
                 editReaderWindow.ShowDialog();
             }
             // Проверяем, является ли он заказом книги
@@ -224,10 +224,12 @@ namespace CityLibrary.Windows
             }
             else if (_currentTableType == CurrentTableType.Readers)
             {
-                // Открываем окно добавления читателя
-                EditReaderWindow addReaderWindow = new EditReaderWindow(null);
+                Random rnd = new Random();
+                int randomTicketNumber = rnd.Next(1, 30000);
+                EditReaderWindow addReaderWindow = new EditReaderWindow(null, randomTicketNumber);
                 addReaderWindow.ShowDialog();
             }
+
             else
             {
                 //Открываем окно добавления регистрации

@@ -21,7 +21,7 @@ namespace CityLibrary.Windows
     {
         CityLibraryEntities1 _context = new CityLibraryEntities1();
         private Reader _reader;
-        public EditReaderWindow(Reader selectReader)
+        public EditReaderWindow(Reader selectReader, int ticketNumber)
         {
             InitializeComponent();
             if (selectReader != null)
@@ -32,6 +32,12 @@ namespace CityLibrary.Windows
                 TxtAddress.Text = selectReader.Address;
                 TxtPhone.Text = selectReader.Phone;
             }
+
+            if (ticketNumber > 0)
+            {
+                TxtNumber.Text = ticketNumber.ToString();
+            }
+
 
         }
 
@@ -59,6 +65,53 @@ namespace CityLibrary.Windows
                 MessageBox.Show("Читатель не найден!");
             }
 
+
+        }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (_reader != null && _reader.ReaderTicketNumber > 0)
+            {
+
+                _reader.ReaderTicketNumber = int.Parse(TxtNumber.Text);
+                _reader.FullName = TxtFullName.Text;
+                _reader.Address = TxtAddress.Text;
+                _reader.Phone = TxtPhone.Text;
+
+                MessageBox.Show("Изменения успешно сохранены!");
+            }
+            else
+            {
+                int newNumber = int.Parse(TxtNumber.Text);
+                var existingReader = _context.Reader.FirstOrDefault(r => r.ReaderTicketNumber == newNumber);
+                if (existingReader != null)
+                {
+                    Random rnd = new Random();
+                    int random = rnd.Next(1, 30000);
+                    while (existingReader != null)
+                    {
+                        existingReader = _context.Reader.FirstOrDefault(r => r.ReaderTicketNumber == random);
+                        random = rnd.Next(1, 30000);
+                    }
+
+                    newNumber = random;
+                    MessageBox.Show($"Номер читательского билета был изменен на {newNumber}.");
+                }
+
+                var newReader = new Reader
+                {
+                    ReaderTicketNumber = newNumber,
+                    FullName = TxtFullName.Text,
+                    Address = TxtAddress.Text,
+                    Phone = TxtPhone.Text,
+                };
+
+                _context.Reader.Add(newReader);
+
+                MessageBox.Show("Читатель успешно добавлен!");
+            }
+            _context.SaveChanges();
+            this.Close();
 
         }
     }
