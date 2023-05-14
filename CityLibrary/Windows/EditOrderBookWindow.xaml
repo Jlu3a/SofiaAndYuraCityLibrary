@@ -48,8 +48,8 @@
             <!--<TextBox Grid.Column="2" x:Name="TxtPlannedDate" Margin="0,0,0,0" FontSize="14" Grid.Row="7"></TextBox>-->
             <!--<TextBox Grid.Column="2" x:Name="TxtRealDate" Margin="0,0,0,0" FontSize="14" Grid.Row="9"></TextBox>-->
             <DatePicker Grid.Column="2" x:Name="TxtRealDate" Margin="0,0,0,0" FontSize="14" Grid.Row="9"></DatePicker>
-            <Button Grid.Column="1" x:Name="BtnSave" Margin="10,10,10,10" Content="Сохранить" FontSize="15" FontWeight="Bold" Grid.Row="11" Click="BtnSave_Click"></Button>
-            <Button Grid.Column="2" x:Name="BtnDelete" Margin="10,10,10,10" Content="Удалить" FontSize="15" FontWeight="Bold" Grid.Row="11" Click="BtnDelete_Click"></Button>
+            <Button Grid.Column="1" x:Name="BtnSave" Margin="10,10,10,10" Content="Сохранить" FontSize="15" FontWeight="Bold" Grid.Row="11" Click="BtnSave_Click" Background="#FF23BB32"  BorderBrush="#FF23BB32"></Button>
+            <Button Grid.Column="2" x:Name="BtnDelete" Margin="10,10,10,10" Content="Удалить" FontSize="15" FontWeight="Bold" Grid.Row="11" Click="BtnDelete_Click" BorderBrush="#FFDD2727" Background="#FFDD2727"></Button>
         </Grid>
 
     </Grid>
