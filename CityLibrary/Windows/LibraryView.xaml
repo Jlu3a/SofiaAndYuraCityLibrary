@@ -12,7 +12,7 @@
             <Rectangle HorizontalAlignment="Center" Height="101" VerticalAlignment="Top" Width="1022" Fill="#FFA9A8EE" />
             <Label Content="Библиотека" HorizontalAlignment="Left" Margin="115,19,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
             <Label Content="Управление данными библиотеки" HorizontalAlignment="Left" Margin="115,51,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18"/>
-            <Image Margin="10,10,887,476" Source="/book.png" Stretch="Fill"/>
+            <Image Margin="10,10,887,476" Source="/Sourse/img/book.png" Stretch="Fill"/>
 
         </Grid>
         <Menu Margin="0,100,0,427">
