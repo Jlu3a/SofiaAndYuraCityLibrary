@@ -23,6 +23,7 @@ namespace CityLibrary
     public partial class Authorization : Window
     {
         CityLibraryEntities1 _entities = new CityLibraryEntities1();
+
         public Authorization()
         {
             InitializeComponent();
