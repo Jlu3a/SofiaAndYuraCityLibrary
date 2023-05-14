@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +39,7 @@ namespace CityLibrary.Windows
             
         }
 
+
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             var orderToDelete = _context.OrderBook.FirstOrDefault(b => b.BookId == _orderBook.BookId);
@@ -57,11 +59,40 @@ namespace CityLibrary.Windows
             {
                 MessageBox.Show("Регистрация не найдена!");
             }
+
+
         }
+
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
+            if (_orderBook != null && _orderBook.BookId > 0)
+            {
+                _orderBook.BookId = int.Parse(TxtInvenarNumber.Text);
+                _orderBook.ReaderTicketNumber = int.Parse(TxtNumber.Text);
+                _orderBook.DateOfIssue = DateTime.Parse(TxtDateOfIssue.Text);
+                _orderBook.PlannedReturnDate = DateTime.Parse(TxtPlannedDate.Text);
+                _orderBook.RealReturnDate = DateTime.Parse(TxtRealDate.Text);
 
+                MessageBox.Show("Изменения успешно сохранены!");
+            }
+            else
+            {
+                var newOrder = new OrderBook
+                {
+                    BookId = int.Parse(TxtInvenarNumber.Text),
+                    ReaderTicketNumber = int.Parse(TxtNumber.Text),
+                    DateOfIssue = DateTime.Now,
+                    PlannedReturnDate = DateTime.Now.AddMonths(1),
+                    RealReturnDate = DateTime.Parse(TxtRealDate.Text)
+                };
+
+                _context.OrderBook.Add(newOrder);
+
+                MessageBox.Show("Регистрация успешно добавлена!");
+            }
+            _context.SaveChanges();
+            this.Close();
         }
     }
 }
