@@ -114,7 +114,8 @@ namespace CityLibrary.Windows
 
             // Добавляем кнопку редактирования в последний столбец
             dataGrid.CanUserAddRows = false;
-            var editColumn = new DataGridTemplateColumn();
+			dataGrid.IsReadOnly = true;
+			var editColumn = new DataGridTemplateColumn();
             editColumn.Header = "Редактировать";
             var buttonFactory = new FrameworkElementFactory(typeof(Button));
             buttonFactory.SetValue(Button.ContentProperty, "Редактировать");
@@ -142,7 +143,8 @@ namespace CityLibrary.Windows
 
             // Добавляем кнопку редактирования в последний столбец
             dataGrid.CanUserAddRows = false;
-            var editColumn = new DataGridTemplateColumn();
+			dataGrid.IsReadOnly = true;
+			var editColumn = new DataGridTemplateColumn();
             editColumn.Header = "Редактировать";
             var buttonFactory = new FrameworkElementFactory(typeof(Button));
             buttonFactory.SetValue(Button.ContentProperty, "Редактировать");
@@ -169,6 +171,7 @@ namespace CityLibrary.Windows
 
             // Добавляем кнопку редактирования в последний столбец
             dataGrid.CanUserAddRows = false;
+			dataGrid.IsReadOnly = true;
 			var editColumn = new DataGridTemplateColumn();
             editColumn.Header = "Редактировать";
             var buttonFactory = new FrameworkElementFactory(typeof(Button));
@@ -305,7 +308,8 @@ namespace CityLibrary.Windows
                 .ToList();
 
             dataGrid.CanUserAddRows = false;
-            AddBtn.Visibility = Visibility.Hidden;
+			dataGrid.IsReadOnly = true;
+			AddBtn.Visibility = Visibility.Hidden;
 
             dataGrid.ItemsSource = booksOnHands;
             dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
@@ -346,6 +350,7 @@ namespace CityLibrary.Windows
 				.OrderByDescending(x => x.Count)
 				.ToList();
 			dataGrid.CanUserAddRows = false;
+            dataGrid.IsReadOnly = true;
 			dataGrid.ItemsSource = bookPopularities;
 			dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
 			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Название книги", Binding = new Binding("BookName") });
