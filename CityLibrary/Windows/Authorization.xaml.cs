@@ -42,7 +42,7 @@ namespace CityLibrary
 				}
                 else
                 {
-                    MessageBox.Show("Провере поле пароля");
+                    MessageBox.Show("Проверте поле пароля");
                 }
 			}
             else

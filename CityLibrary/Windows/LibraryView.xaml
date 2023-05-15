@@ -28,6 +28,7 @@
             </MenuItem>
         </Menu>
         <DataGrid x:Name="dataGrid" AutoGenerateColumns="True" Margin="0,137,0,10" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" />
-        <Button x:Name="AddBtn" Content="Добавить" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="820,100,0,0" VerticalAlignment="Top" Height="37" Width="125" Visibility="Visible" Click="AddBtn_Click_1" Background="#FF69D0E6" BorderBrush="#FF3567D6"/>
+        <Button x:Name="AddBtn" Content="Добавить" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="820,100,0,0" VerticalAlignment="Top" Height="37" Width="125" Visibility="Hidden" Click="AddBtn_Click_1" Background="#FF69D0E6" BorderBrush="#FF3567D6"/>
+        <Button x:Name="ExtBtn" Content="Выйти" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="875,-2,0,0" VerticalAlignment="Top" Height="37" Width="125" Click="ExtBtn_Click"  Background="#FF7B7AAF" />
     </Grid>
 </Window>

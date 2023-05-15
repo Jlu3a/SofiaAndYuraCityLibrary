@@ -105,7 +105,7 @@ namespace CityLibrary.Windows
             _currentTableType = CurrentTableType.Books;
             SetAddButtonVisibility(_currentTableType, userRole);
             List<Book> books = _entities.Book.ToList();
-			MenuItem.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
+			MenuItem.Background = new SolidColorBrush(Color.FromRgb(169, 180, 238));
 			dataGrid.ItemsSource = books;
             dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
             dataGrid.Columns.Add(new DataGridTextColumn { Header = "Название", Binding = new Binding("BookName")  } );
@@ -114,7 +114,8 @@ namespace CityLibrary.Windows
 
             // Добавляем кнопку редактирования в последний столбец
             dataGrid.CanUserAddRows = false;
-            var editColumn = new DataGridTemplateColumn();
+			dataGrid.IsReadOnly = true;
+			var editColumn = new DataGridTemplateColumn();
             editColumn.Header = "Редактировать";
             var buttonFactory = new FrameworkElementFactory(typeof(Button));
             buttonFactory.SetValue(Button.ContentProperty, "Редактировать");
@@ -133,7 +134,7 @@ namespace CityLibrary.Windows
             _currentTableType = CurrentTableType.Readers;
             SetAddButtonVisibility(_currentTableType, userRole);
             List<Reader> readers = _entities.Reader.ToList();
-			MenuItem1.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
+			MenuItem1.Background = new SolidColorBrush(Color.FromRgb(169, 180, 238));
 			dataGrid.ItemsSource = readers;
             dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
             dataGrid.Columns.Add(new DataGridTextColumn { Header = "Номер читательского билета", Binding = new Binding("ReaderTicketNumber") });
@@ -143,7 +144,8 @@ namespace CityLibrary.Windows
 
             // Добавляем кнопку редактирования в последний столбец
             dataGrid.CanUserAddRows = false;
-            var editColumn = new DataGridTemplateColumn();
+			dataGrid.IsReadOnly = true;
+			var editColumn = new DataGridTemplateColumn();
             editColumn.Header = "Редактировать";
             var buttonFactory = new FrameworkElementFactory(typeof(Button));
             buttonFactory.SetValue(Button.ContentProperty, "Редактировать");
@@ -160,7 +162,7 @@ namespace CityLibrary.Windows
             _currentTableType = CurrentTableType.Orders;
             SetAddButtonVisibility(_currentTableType, userRole);
             List<OrderBook> orderBooks = _entities.OrderBook.ToList();
-			MenuItem2.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
+			MenuItem2.Background = new SolidColorBrush(Color.FromRgb(169, 180, 238));
 			dataGrid.ItemsSource = orderBooks;
             dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
             dataGrid.Columns.Add(new DataGridTextColumn { Header = "Инвентарный номер ", Binding = new Binding("BookId") });
@@ -171,6 +173,7 @@ namespace CityLibrary.Windows
 
             // Добавляем кнопку редактирования в последний столбец
             dataGrid.CanUserAddRows = false;
+			dataGrid.IsReadOnly = true;
 			var editColumn = new DataGridTemplateColumn();
             editColumn.Header = "Редактировать";
             var buttonFactory = new FrameworkElementFactory(typeof(Button));
@@ -277,9 +280,9 @@ namespace CityLibrary.Windows
             ClearBtnActMenuItems();
             _currentTableType = CurrentTableType.Orders;
             SetAddButtonVisibility(_currentTableType, userRole);
-            MenuItem3.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
+            MenuItem3.Background = new SolidColorBrush(Color.FromRgb(169, 180, 238));
 
-            var orders = _entities.OrderBook.ToList();
+			var orders = _entities.OrderBook.ToList();
 
             List<BookPopularity> book = new List<BookPopularity>();
             List<ReaderNow> reader = new List<ReaderNow>();
@@ -300,7 +303,8 @@ namespace CityLibrary.Windows
                 .ToList();
 
             dataGrid.CanUserAddRows = false;
-            AddBtn.Visibility = Visibility.Hidden;
+			dataGrid.IsReadOnly = true;
+			AddBtn.Visibility = Visibility.Hidden;
 
             dataGrid.ItemsSource = booksOnHands;
             dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
@@ -312,79 +316,6 @@ namespace CityLibrary.Windows
             dataGrid.Columns.Add(new DataGridTextColumn { Header = "Дата выдачи", Binding = new Binding("DateOfIssue") { StringFormat = "dd.MM.yyyy" } });
 
             SetEditButtonVisibility(_currentTableType, userRole);
-
-            ////здесь будет таблица книги на руках
-            //         ClearBtnActMenuItems();
-            //_currentTableType = CurrentTableType.Orders;
-            //SetAddButtonVisibility(_currentTableType, userRole);
-            //MenuItem3.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
-
-            //var orders = _entities.OrderBook.ToList();
-
-            //// Группируем заказы по BookId и считаем количество прочтений для каждой книги
-
-            //List<BookPopularity> book = new List<BookPopularity>();
-            //List<ReaderNow> reader = new List<ReaderNow>();
-            //List<OrderNow> orderfNows = new List<OrderNow>();
-            //List<BookOnHands> booksOnHands = new List<BookOnHands>();
-            //         booksOnHands = null;
-
-            //book = orders.OrderBy(c => c.RealReturnDate == null)
-            //	.GroupBy(ob => ob.BookId)
-            //	.Select(g => new BookPopularity
-            //	{
-            //		BookName = g.FirstOrDefault()?.Book.BookName,
-            //		Author = g.FirstOrDefault()?.Book.Author
-            //	})
-            //	.ToList();
-
-            //         reader = orders.OrderBy(c => c.RealReturnDate == null)
-            //	.GroupBy(ob => ob.BookId)
-            //             .Select(g => new ReaderNow
-            //             {
-            //                 FullName = g.FirstOrDefault()?.Reader.FullName,
-            //		Address = g.FirstOrDefault()?.Reader.Address
-            //             })
-            //	.ToList();
-
-            //orderfNows = orders.OrderBy(c => c.RealReturnDate == null)
-            //	.GroupBy(ob => ob.BookId)
-            //          .Select(g => new OrderNow
-            //	{
-            //		PlanedDataTime = DateTime.Parse(g.FirstOrDefault()?.PlannedReturnDate.ToString()),
-            //		DateOfIssue = DateTime.Parse( g.FirstOrDefault()?.DateOfIssue.ToString())
-            //          })
-            //          .ToList();
-
-            //booksOnHands = orders
-            //	.Select(ob => new BookOnHands
-            //	{
-            //		BookName = ob.Book.BookName,
-            //		Author = ob.Book.Author,
-            //		FullName = ob.Reader.FullName,
-            //		Address = ob.Reader.Address,
-            //		PlanedDataTime = ob.PlannedReturnDate,
-            //		DateOfIssue = ob.DateOfIssue
-            //	})
-            //	.OrderByDescending(x => x.DateOfIssue)
-            //	.ToList();
-
-            //dataGrid.CanUserAddRows = false;
-            //AddBtn.Visibility = Visibility.Hidden;
-
-            //dataGrid.ItemsSource = booksOnHands;
-            //dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
-            //dataGrid.Columns.Add(new DataGridTextColumn { Header = "Название книги", Binding = new Binding("BookName") });
-            //dataGrid.Columns.Add(new DataGridTextColumn { Header = "Автор", Binding = new Binding("Author") });
-            //dataGrid.Columns.Add(new DataGridTextColumn { Header = "ФИО читателя", Binding = new Binding("FullName") });
-            //dataGrid.Columns.Add(new DataGridTextColumn { Header = "Адрес", Binding = new Binding("Address") });
-            //dataGrid.Columns.Add(new DataGridTextColumn { Header = "Плановая дата возврата", Binding = new Binding("PlanedDataTime") { StringFormat = "dd.MM.yyyy" } });
-            //dataGrid.Columns.Add(new DataGridTextColumn { Header = "Дата выдачи", Binding = new Binding("DateOfIssue") { StringFormat = "dd.MM.yyyy" } });
-
-
-            //// Присваиваем список объектов BookPopularity источнику данных для DataGrid
-
-            //SetEditButtonVisibility(_currentTableType, userRole);
         }
 
         //Отображение таблицы популярные книги
@@ -394,7 +325,7 @@ namespace CityLibrary.Windows
 			ClearBtnActMenuItems();
 			AddBtn.Visibility = Visibility.Hidden;
 			dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
-			MenuItem4.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
+			MenuItem4.Background = new SolidColorBrush(Color.FromRgb(169, 180, 238));
 			// Получаем список заказов из базы данных
 			var orders = _entities.OrderBook.ToList();
 
@@ -411,6 +342,7 @@ namespace CityLibrary.Windows
 				.OrderByDescending(x => x.Count)
 				.ToList();
 			dataGrid.CanUserAddRows = false;
+            dataGrid.IsReadOnly = true;
 			dataGrid.ItemsSource = bookPopularities;
 			dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
 			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Название книги", Binding = new Binding("BookName") });
@@ -424,5 +356,12 @@ namespace CityLibrary.Windows
 			MenuItem3.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
 			MenuItem4.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
 		}
-    }
+
+		private void ExtBtn_Click(object sender, RoutedEventArgs e)
+		{
+			Authorization authorization = new Authorization();
+            authorization.Show();
+			this.Close();
+		}
+	}
 }
