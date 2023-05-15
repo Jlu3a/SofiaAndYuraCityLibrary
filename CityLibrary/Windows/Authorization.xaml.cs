@@ -22,7 +22,7 @@ namespace CityLibrary
     /// </summary>
     public partial class Authorization : Window
     {
-        CityLibraryEntities1 _entities = new CityLibraryEntities1();
+        private CityLibraryEntities1 _entities = new CityLibraryEntities1();
         public Authorization()
         {
             InitializeComponent();
@@ -31,37 +31,34 @@ namespace CityLibrary
 
         private void SignInBtn_Click(object sender, RoutedEventArgs e)
         {
-            string userLogin = "";
-            var userPass = "";
-            if(LoginTxt.Text != "" ||  LoginTxt.Text != null)
+            string userLogin = LoginTxt.Text;
+            string userPass = ShowPass.IsChecked.Value ? PassTxtUnmask.Text : PassTxtMask.Password;
+
+            if (string.IsNullOrEmpty(userLogin))
             {
-				userLogin = LoginTxt.Text;
-				if (PassTxtMask.Password != "" || PassTxtMask.Password != null)
-				{
-					userPass = ShowPass.IsChecked.Value ? PassTxtUnmask.Text : PassTxtMask.Password;
-				}
-                else
-                {
-                    MessageBox.Show("Проверте поле пароля");
-                }
-			}
-            else
-            {
-                MessageBox.Show("Проверте поле логина");
+                MessageBox.Show("Пожалуйста, введите логин.");
+                return;
             }
 
+            if (string.IsNullOrEmpty(userPass))
+            {
+                MessageBox.Show("Пожалуйста, введите пароль.");
+                return;
+            }
 
             User user = _entities.User.FirstOrDefault(u => u.UserLogin == userLogin && u.UserPassword == userPass);
-            if(user != null)
+            if (user != null)
             {
-                MessageBox.Show("Добро пожалрвать!");
+                MessageBox.Show("Добро пожаловать!");
                 int userRole = user.UserRole;
-				LibraryView libraryView = new LibraryView(userRole);
+                LibraryView libraryView = new LibraryView(userRole);
                 libraryView.Show();
-                this.Close();
-			}
+                Close();
+            }
             else
+            {
                 MessageBox.Show("Пользователь не найден!");
+            }
         }
 
         private void ShowPass_Click(object sender, RoutedEventArgs e)

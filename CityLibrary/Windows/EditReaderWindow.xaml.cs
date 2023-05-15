@@ -44,6 +44,7 @@ namespace CityLibrary.Windows
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             var readerToDelete = _context.Reader.FirstOrDefault(b => b.ReaderTicketNumber == _reader.ReaderTicketNumber);
+
             // Если читатель найден в базе данных, удаляем его
             if (readerToDelete != null)
             {
