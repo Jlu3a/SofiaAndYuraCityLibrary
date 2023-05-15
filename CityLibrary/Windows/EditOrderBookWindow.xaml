@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CityLibrary.Windows"
         mc:Ignorable="d"
-        Title="Библиотека" Height="520" Width="550" WindowStartupLocation="CenterScreen">
+        Title="Библиотека" Height="520" Width="550" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
             <Rectangle HorizontalAlignment="Center" Height="101" VerticalAlignment="Top" Width="582" Fill="#FFA9A8EE" Margin="0,-1,0,0" />

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         WindowStartupLocation="CenterScreen"
-        Title="Авторизация" Height="600" Width="1000">
+        Title="Авторизация" Height="600" Width="1000" ResizeMode="NoResize">
     <Grid>
         <Image Source="/Sourse/img/3d-render-books-textbook-stack-pencil-and-pen.jpg" Stretch="Fill"/>
 

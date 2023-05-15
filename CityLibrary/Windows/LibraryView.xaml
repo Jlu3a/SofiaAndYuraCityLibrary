@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CityLibrary.Windows"
         mc:Ignorable="d"
         Title="Библиотека" Height="600
-        " Width="1000" WindowStartupLocation="CenterScreen">
+        " Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
             <Rectangle HorizontalAlignment="Center" Height="101" VerticalAlignment="Top" Width="1022" Fill="#FFA9A8EE" />
