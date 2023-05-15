@@ -70,16 +70,24 @@ namespace CityLibrary.Windows
         {
             if (_reader != null && _reader.ReaderTicketNumber > 0)
             {
+                if(TxtNumber.Text == "" || TxtAddress.Text == "" || TxtPhone.Text == "")
+                {
+                    MessageBox.Show("Заполните все поля!");
+                }
+                else
+                {
+                    _reader.ReaderTicketNumber = int.Parse(TxtNumber.Text);
+                    _reader.FullName = TxtFullName.Text;
+                    _reader.Address = TxtAddress.Text;
+                    _reader.Phone = TxtPhone.Text;
 
-                _reader.ReaderTicketNumber = int.Parse(TxtNumber.Text);
-                _reader.FullName = TxtFullName.Text;
-                _reader.Address = TxtAddress.Text;
-                _reader.Phone = TxtPhone.Text;
-
-                MessageBox.Show("Изменения успешно сохранены!");
+                    MessageBox.Show("Изменения успешно сохранены!");
+                }
+               
             }
             else
             {
+                
                 int newNumber = int.Parse(TxtNumber.Text);
                 var existingReader = _context.Reader.FirstOrDefault(r => r.ReaderTicketNumber == newNumber);
                 if (existingReader != null)
@@ -95,18 +103,25 @@ namespace CityLibrary.Windows
                     newNumber = random;
                     MessageBox.Show($"Номер читательского билета был изменен на {newNumber}.");
                 }
-
-                var newReader = new Reader
+                if(TxtFullName.Text == "" || TxtAddress.Text == "" || TxtAddress.Text == "")
                 {
-                    ReaderTicketNumber = newNumber,
-                    FullName = TxtFullName.Text,
-                    Address = TxtAddress.Text,
-                    Phone = TxtPhone.Text,
-                };
+                    MessageBox.Show("Заполните все поля!");
+                }
+                else
+                {
+                    var newReader = new Reader
+                    {
+                        ReaderTicketNumber = newNumber,
+                        FullName = TxtFullName.Text,
+                        Address = TxtAddress.Text,
+                        Phone = TxtPhone.Text,
+                    };
 
-                _context.Reader.Add(newReader);
+                    _context.Reader.Add(newReader);
 
-                MessageBox.Show("Читатель успешно добавлен!");
+                    MessageBox.Show("Читатель успешно добавлен!");
+                }
+                
             }
             _context.SaveChanges();
             this.Close();
