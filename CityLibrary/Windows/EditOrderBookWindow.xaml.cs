@@ -28,6 +28,8 @@ namespace CityLibrary.Windows
         {
             InitializeComponent();
 
+            // Если передана регистрация, значит открываем окно для ее редактирования
+            // Иначе открываем для добавления новой регистрации
             if (selectedOrderBook != null)
             {
                 _orderBook = selectedOrderBook;
@@ -49,11 +51,13 @@ namespace CityLibrary.Windows
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             var orderToDelete = _context.OrderBook.FirstOrDefault(b => b.BookId == _orderBook.BookId);
+            // Если крегистрация найдена в базе данных, удаляем ее
             if (orderToDelete != null)
             {
                 MessageBoxResult result = MessageBox.Show("Вы уверены что хотите удалить регистрацию?", "Удаление регистрации", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
+                    // Подключаем регистрацию к контексту базы данных
                     _context.OrderBook.Attach(orderToDelete);
                     _context.OrderBook.Remove(orderToDelete);
                     _context.SaveChanges();
@@ -74,6 +78,7 @@ namespace CityLibrary.Windows
         {
             if (_orderBook != null && _orderBook.BookId > 0)
             {
+                // Обновляем поля существующей регистрации
                 _orderBook.BookId = int.Parse(TxtInvenarNumber.Text);
                 _orderBook.ReaderTicketNumber = int.Parse(TxtNumber.Text);
                 _orderBook.DateOfIssue = DateTime.Parse(TxtDateOfIssue.Text);
@@ -82,7 +87,8 @@ namespace CityLibrary.Windows
 
 				if (TxtRealDate.Text != null || TxtRealDate.Text != "")
 				{
-					var book = _context.Book.FirstOrDefault(b => b.BookId == _orderBook.BookId);
+                    // Создаем новую регистрацию
+                    var book = _context.Book.FirstOrDefault(b => b.BookId == _orderBook.BookId);
 					if (book != null)
 					{
 						if (_orderBook.RealReturnDate != null)

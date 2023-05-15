@@ -98,7 +98,7 @@ namespace CityLibrary.Windows
             }
         }
 
-
+        //Отображение таблицы книги
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             ClearBtnActMenuItems();
@@ -126,6 +126,7 @@ namespace CityLibrary.Windows
 
         }
 
+        //Отображение таблицы читатели
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             ClearBtnActMenuItems();  
@@ -152,6 +153,7 @@ namespace CityLibrary.Windows
             SetEditButtonVisibility(_currentTableType, userRole);
         }
 
+        //Отображение таблицы регистрация
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
             ClearBtnActMenuItems();
@@ -214,14 +216,9 @@ namespace CityLibrary.Windows
             
         }
 
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void AddBtn_Click_1(object sender, RoutedEventArgs e)
         {
+            //Проверяем на какой мы сейчас таблице
             if (_currentTableType == CurrentTableType.Books)
             {
                 // Открываем окно добавления книги
@@ -274,17 +271,15 @@ namespace CityLibrary.Windows
 			public DateTime DateOfIssue { get; set; }
 
 		}
+        //Отображение таблицы книги на руках
 		private void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
-            //здесь будет таблица книги на руках
             ClearBtnActMenuItems();
             _currentTableType = CurrentTableType.Orders;
             SetAddButtonVisibility(_currentTableType, userRole);
             MenuItem3.Background = new SolidColorBrush(Color.FromRgb(232, 232, 232));
 
             var orders = _entities.OrderBook.ToList();
-
-            // Группируем заказы по BookId и считаем количество прочтений для каждой книги
 
             List<BookPopularity> book = new List<BookPopularity>();
             List<ReaderNow> reader = new List<ReaderNow>();
@@ -315,9 +310,6 @@ namespace CityLibrary.Windows
             dataGrid.Columns.Add(new DataGridTextColumn { Header = "Адрес", Binding = new Binding("Address") });
             dataGrid.Columns.Add(new DataGridTextColumn { Header = "Плановая дата возврата", Binding = new Binding("PlanedDataTime") { StringFormat = "dd.MM.yyyy" } });
             dataGrid.Columns.Add(new DataGridTextColumn { Header = "Дата выдачи", Binding = new Binding("DateOfIssue") { StringFormat = "dd.MM.yyyy" } });
-
-
-            // Присваиваем список объектов BookPopularity источнику данных для DataGrid
 
             SetEditButtonVisibility(_currentTableType, userRole);
 
@@ -395,9 +387,9 @@ namespace CityLibrary.Windows
             //SetEditButtonVisibility(_currentTableType, userRole);
         }
 
+        //Отображение таблицы популярные книги
 		private void MenuItem_Click_4(object sender, RoutedEventArgs e)
 		{
-			//здесь будет таблица популярные книги
 
 			ClearBtnActMenuItems();
 			AddBtn.Visibility = Visibility.Hidden;
@@ -423,8 +415,6 @@ namespace CityLibrary.Windows
 			dataGrid.Columns.Clear(); // Очищаем существующие колонки, если есть
 			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Название книги", Binding = new Binding("BookName") });
 			dataGrid.Columns.Add(new DataGridTextColumn { Header = "Кол-во прочтений ", Binding = new Binding("Count") });
-
-			// Присваиваем список объектов BookPopularity источнику данных для DataGrid
 		}
         private void ClearBtnActMenuItems()
         {

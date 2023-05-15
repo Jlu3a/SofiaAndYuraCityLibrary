@@ -49,9 +49,7 @@ namespace CityLibrary.Windows
                 {
                     // Подключаем книгу к контексту базы данных
                     _context.Book.Attach(bookToDelete);
-                    // Удаляем книгу из базы данных
                     _context.Book.Remove(bookToDelete);
-                    // Сохраняем изменения
                     _context.SaveChanges();
                     MessageBox.Show("Книга успешно удалена!");
                     this.Close();
@@ -84,17 +82,13 @@ namespace CityLibrary.Windows
                     Author = TxtAuthor.Text,
                     BookCount = int.Parse(TxtBookCount.Text),
                 };
-
-                // Добавляем новую книгу в базу данных
                 _context.Book.Add(newBook);
 
                 MessageBox.Show("Книга успешно добавлена!");
             }
 
-            // Сохраняем изменения в базе данных
             _context.SaveChanges();
 
-            // Закрываем окно
             this.Close();
         }
     }

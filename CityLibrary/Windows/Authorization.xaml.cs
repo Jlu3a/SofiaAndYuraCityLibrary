@@ -58,16 +58,7 @@ namespace CityLibrary
                 int userRole = user.UserRole;
 				LibraryView libraryView = new LibraryView(userRole);
                 libraryView.Show();
-                this.Close();/*
-				switch (user.UserRole)
-				{
-				    case 1:
-				        MessageBox.Show("Зав. библиотекой");
-				        break;
-				    default:
-				        MessageBox.Show("Библиотекарь");
-				        break;
-				}*/
+                this.Close();
 			}
             else
                 MessageBox.Show("Пользователь не найден!");

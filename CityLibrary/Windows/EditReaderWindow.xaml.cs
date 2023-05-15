@@ -44,17 +44,15 @@ namespace CityLibrary.Windows
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             var readerToDelete = _context.Reader.FirstOrDefault(b => b.ReaderTicketNumber == _reader.ReaderTicketNumber);
-            // Если книга найдена в базе данных, удаляем ее
+            // Если читатель найден в базе данных, удаляем его
             if (readerToDelete != null)
             {
                 MessageBoxResult result = MessageBox.Show("Вы уверены что хотите удалить читателя?", "Удаление читателя", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
-                    // Подключаем книгу к контексту базы данных
+                    // Подключаем читателя к контексту базы данных
                     _context.Reader.Attach(readerToDelete);
-                    // Удаляем книгу из базы данных
                     _context.Reader.Remove(readerToDelete);
-                    // Сохраняем изменения
                     _context.SaveChanges();
                     MessageBox.Show("Читатель успешно удален!");
                     this.Close();
