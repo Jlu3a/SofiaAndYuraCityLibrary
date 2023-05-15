@@ -120,6 +120,7 @@ namespace CityLibrary.Windows
             var buttonFactory = new FrameworkElementFactory(typeof(Button));
             buttonFactory.SetValue(Button.ContentProperty, "Редактировать");
             buttonFactory.AddHandler(Button.ClickEvent, new RoutedEventHandler(EditButton_Click));
+            buttonFactory.SetValue(Button.BackgroundProperty, new SolidColorBrush(Color.FromRgb(169, 180, 238)));
             editColumn.CellTemplate = new DataTemplate() { VisualTree = buttonFactory };
             dataGrid.Columns.Add(editColumn);
             SetEditButtonVisibility(_currentTableType, userRole);
@@ -150,7 +151,8 @@ namespace CityLibrary.Windows
             var buttonFactory = new FrameworkElementFactory(typeof(Button));
             buttonFactory.SetValue(Button.ContentProperty, "Редактировать");
             buttonFactory.AddHandler(Button.ClickEvent, new RoutedEventHandler(EditButton_Click));
-            editColumn.CellTemplate = new DataTemplate() { VisualTree = buttonFactory };
+			buttonFactory.SetValue(Button.BackgroundProperty, new SolidColorBrush(Color.FromRgb(169, 180, 238)));
+			editColumn.CellTemplate = new DataTemplate() { VisualTree = buttonFactory };
             dataGrid.Columns.Add(editColumn);
             SetEditButtonVisibility(_currentTableType, userRole);
         }
@@ -179,7 +181,8 @@ namespace CityLibrary.Windows
             var buttonFactory = new FrameworkElementFactory(typeof(Button));
             buttonFactory.SetValue(Button.ContentProperty, "Редактировать");
             buttonFactory.AddHandler(Button.ClickEvent, new RoutedEventHandler(EditButton_Click));
-            editColumn.CellTemplate = new DataTemplate() { VisualTree = buttonFactory };
+			buttonFactory.SetValue(Button.BackgroundProperty, new SolidColorBrush(Color.FromRgb(169, 180, 238)));
+			editColumn.CellTemplate = new DataTemplate() { VisualTree = buttonFactory };
             dataGrid.Columns.Add(editColumn);
             SetEditButtonVisibility(_currentTableType, userRole);
             
