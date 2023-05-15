@@ -66,25 +66,41 @@ namespace CityLibrary.Windows
 
             if (_book != null && _book.BookId > 0)
             {
-                // Обновляем поля существующей книги
-                _book.BookName = TxtBookName.Text;
-                _book.Author = TxtAuthor.Text;
-                _book.BookCount = int.Parse(TxtBookCount.Text);
+                if (TxtBookName.Text == "" || TxtAuthor.Text == "" || TxtBookCount.Text == "")
+                {
+                    MessageBox.Show("Проверьте все поля, они должны быть заполнены!");
+                }
+                else
+                {
+                    // Обновляем поля существующей книги
+                    _book.BookName = TxtBookName.Text;
+                    _book.Author = TxtAuthor.Text;
+                    _book.BookCount = int.Parse(TxtBookCount.Text);
 
-                MessageBox.Show("Изменения успешно сохранены!");
+                    MessageBox.Show("Изменения успешно сохранены!");
+                }
+                
             }
             else
             {
-                // Создаем новую книгу
-                var newBook = new Book
+                if(TxtBookName.Text == "" || TxtAuthor.Text == "" || TxtBookCount.Text == "")
                 {
-                    BookName = TxtBookName.Text,
-                    Author = TxtAuthor.Text,
-                    BookCount = int.Parse(TxtBookCount.Text),
-                };
-                _context.Book.Add(newBook);
+                    MessageBox.Show("Проверьте все поля, они должны быть заполнены!");
+                }
+                else
+                {
+                    // Создаем новую книгу
+                    var newBook = new Book
+                    {
+                        BookName = TxtBookName.Text,
+                        Author = TxtAuthor.Text,
+                        BookCount = int.Parse(TxtBookCount.Text),
+                    };
+                    _context.Book.Add(newBook);
 
-                MessageBox.Show("Книга успешно добавлена!");
+                    MessageBox.Show("Книга успешно добавлена!");
+                }
+                
             }
 
             _context.SaveChanges();
