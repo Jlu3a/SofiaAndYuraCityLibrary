@@ -78,69 +78,110 @@ namespace CityLibrary.Windows
         {
             if (_orderBook != null && _orderBook.BookId > 0)
             {
-                // Обновляем поля существующей регистрации
-                _orderBook.BookId = int.Parse(TxtInvenarNumber.Text);
-                _orderBook.ReaderTicketNumber = int.Parse(TxtNumber.Text);
-                _orderBook.DateOfIssue = DateTime.Parse(TxtDateOfIssue.Text);
-                _orderBook.PlannedReturnDate = DateTime.Parse(TxtPlannedDate.Text);
-                _orderBook.RealReturnDate = DateTime.Parse(TxtRealDate.Text);
+                
+                if(TxtInvenarNumber.Text == "" || TxtNumber.Text == "" || TxtDateOfIssue.Text == "" || TxtPlannedDate.Text == "" || TxtRealDate.Text == "")
+                {
+                    MessageBox.Show("Заполните все поля!");
+                }
+                else
+                {
+                    // Обновляем поля существующей регистрации
+                    _orderBook.BookId = int.Parse(TxtInvenarNumber.Text);
+                    _orderBook.ReaderTicketNumber = int.Parse(TxtNumber.Text);
+                    _orderBook.DateOfIssue = DateTime.Parse(TxtDateOfIssue.Text);
+                    _orderBook.PlannedReturnDate = DateTime.Parse(TxtPlannedDate.Text);
+                    _orderBook.RealReturnDate = DateTime.Parse(TxtRealDate.Text);
+                    if (TxtRealDate.Text != null || TxtRealDate.Text != "")
+                    {
+                        // Создаем новую регистрацию
+                        var book = _context.Book.FirstOrDefault(b => b.BookId == _orderBook.BookId);
+                        if (book != null)
+                        {
+                            if (_orderBook.RealReturnDate != null)
+                            {
+                                book.BookCount += 1;
+                                _context.SaveChanges();
+                            }
+                        }
+                    }
 
-				if (TxtRealDate.Text != null || TxtRealDate.Text != "")
-				{
-                    // Создаем новую регистрацию
-                    var book = _context.Book.FirstOrDefault(b => b.BookId == _orderBook.BookId);
-					if (book != null)
-					{
-						if (_orderBook.RealReturnDate != null)
-						{
-							book.BookCount += 1;
-							_context.SaveChanges();
-						}
-					}
-				}
+                    MessageBox.Show("Изменения успешно сохранены!");
+                }
+               
+                    
+                
+                
 
-				MessageBox.Show("Изменения успешно сохранены!");
+				
             }
             else
             {
                 if (TxtRealDate.Text == null || TxtRealDate.Text == "")
                 {
-					var newOrder = new OrderBook
-					{
-						BookId = int.Parse(TxtInvenarNumber.Text),
-						ReaderTicketNumber = int.Parse(TxtNumber.Text),
-						DateOfIssue = DateTime.Parse(TxtDateOfIssue.Text),
-						PlannedReturnDate = DateTime.Parse(TxtPlannedDate.Text),
-					};
-					_context.OrderBook.Add(newOrder);
+
+                    if (TxtInvenarNumber.Text == "" || TxtNumber.Text == "" || TxtDateOfIssue.Text == "" || TxtPlannedDate.Text == "" || TxtRealDate.Text == "")
+                    {
+                        MessageBox.Show("Заполните все поля!");
+                    }
+                    else
+                    {
+                        var newOrder = new OrderBook
+                        {
+                            BookId = int.Parse(TxtInvenarNumber.Text),
+                            ReaderTicketNumber = int.Parse(TxtNumber.Text),
+                            DateOfIssue = DateTime.Parse(TxtDateOfIssue.Text),
+                            PlannedReturnDate = DateTime.Parse(TxtPlannedDate.Text),
+                        };
+                        _context.OrderBook.Add(newOrder);
+                    }
+
+                    
+                    
+					
 				}
                 else
                 {
-					var newOrder = new OrderBook
-					{
-						BookId = int.Parse(TxtInvenarNumber.Text),
-						ReaderTicketNumber = int.Parse(TxtNumber.Text),
-						DateOfIssue = DateTime.Parse(TxtDateOfIssue.Text),
-						PlannedReturnDate = DateTime.Parse(TxtPlannedDate.Text),
-                        RealReturnDate = DateTime.Parse(TxtRealDate.Text)
-					};
-					_context.OrderBook.Add(newOrder);
+                    
+                    
+                        var newOrder = new OrderBook
+                        {
+                            BookId = int.Parse(TxtInvenarNumber.Text),
+                            ReaderTicketNumber = int.Parse(TxtNumber.Text),
+                            DateOfIssue = DateTime.Parse(TxtDateOfIssue.Text),
+                            PlannedReturnDate = DateTime.Parse(TxtPlannedDate.Text),
+                            RealReturnDate = DateTime.Parse(TxtRealDate.Text)
+                        };
+                        _context.OrderBook.Add(newOrder);
+                    
+					
 				}
 
 				if (TxtRealDate.Text == null || TxtRealDate.Text == "")
 				{
-					var book = _context.Book.FirstOrDefault(b => b.BookId == _orderBook.BookId);
-					if (book != null)
-					{
-						if (_orderBook.RealReturnDate == null)
-						{
-							book.BookCount -= 1;
-							_context.SaveChanges();
-						}
-					}
+                    if(TxtRealDate.Text == "")
+                    {
+                        MessageBox.Show("Проверьте поле реальной даты возврата");
+                    }
+                    else
+                    {
+                        var book = _context.Book.FirstOrDefault(b => b.BookId == _orderBook.BookId);
+                        if (book != null)
+                        {
+                            if (_orderBook.RealReturnDate == null)
+                            {
+                                book.BookCount -= 1;
+                                _context.SaveChanges();
+                                MessageBox.Show("Регистрация успешно добавлена!");
+                            }
+                        }
+                    }
+                    
+                        
+                    
+
 				}
 
-				MessageBox.Show("Регистрация успешно добавлена!");
+				
             }
             _context.SaveChanges();
             this.Close();
