@@ -69,27 +69,26 @@ namespace CityLibrary.Windows
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
+            int newNumber = int.Parse(TxtNumber.Text);
+
             if (_reader != null && _reader.ReaderTicketNumber > 0)
             {
-                if(TxtNumber.Text == "" || TxtAddress.Text == "" || TxtPhone.Text == "")
+                if (string.IsNullOrEmpty(TxtNumber.Text) || string.IsNullOrEmpty(TxtAddress.Text) || string.IsNullOrEmpty(TxtPhone.Text))
                 {
                     MessageBox.Show("Заполните все поля!");
                 }
                 else
                 {
-                    _reader.ReaderTicketNumber = int.Parse(TxtNumber.Text);
+                    _reader.ReaderTicketNumber = newNumber;
                     _reader.FullName = TxtFullName.Text;
                     _reader.Address = TxtAddress.Text;
                     _reader.Phone = TxtPhone.Text;
 
                     MessageBox.Show("Изменения успешно сохранены!");
                 }
-               
             }
             else
             {
-                
-                int newNumber = int.Parse(TxtNumber.Text);
                 var existingReader = _context.Reader.FirstOrDefault(r => r.ReaderTicketNumber == newNumber);
                 if (existingReader != null)
                 {
@@ -104,7 +103,8 @@ namespace CityLibrary.Windows
                     newNumber = random;
                     MessageBox.Show($"Номер читательского билета был изменен на {newNumber}.");
                 }
-                if(TxtFullName.Text == "" || TxtAddress.Text == "" || TxtAddress.Text == "")
+
+                if (string.IsNullOrEmpty(TxtFullName.Text) || string.IsNullOrEmpty(TxtAddress.Text) || string.IsNullOrEmpty(TxtPhone.Text))
                 {
                     MessageBox.Show("Заполните все поля!");
                 }
@@ -119,14 +119,12 @@ namespace CityLibrary.Windows
                     };
 
                     _context.Reader.Add(newReader);
-
                     MessageBox.Show("Читатель успешно добавлен!");
                 }
-                
             }
-            _context.SaveChanges();
-            this.Close();
 
+            _context.SaveChanges();
+            Close();
         }
     }
 }
