@@ -21,7 +21,7 @@ namespace CityLibrary.Windows
     /// </summary>
     public partial class EditOrderBookWindow : Window
     {
-        CityLibraryEntities1 _context = new CityLibraryEntities1();
+       private CityLibraryEntities1 _context = new CityLibraryEntities1();
         private OrderBook _orderBook;
  
         public EditOrderBookWindow(OrderBook selectedOrderBook)
@@ -79,7 +79,7 @@ namespace CityLibrary.Windows
             if (_orderBook != null && _orderBook.BookId > 0)
             {
                 
-                if(TxtInvenarNumber.Text == "" || TxtNumber.Text == "" || TxtDateOfIssue.Text == "" || TxtPlannedDate.Text == "" || TxtRealDate.Text == "")
+                if(string.IsNullOrEmpty(TxtNumber.Text) || string.IsNullOrEmpty(TxtDateOfIssue.Text) || string.IsNullOrEmpty(TxtPlannedDate.Text) || string.IsNullOrEmpty(TxtRealDate.Text))
                 {
                     MessageBox.Show("Заполните все поля!");
                 }
@@ -119,7 +119,7 @@ namespace CityLibrary.Windows
                 if (TxtRealDate.Text == null || TxtRealDate.Text == "")
                 {
 
-                    if (TxtInvenarNumber.Text == "" || TxtNumber.Text == "" || TxtDateOfIssue.Text == "" || TxtPlannedDate.Text == "" || TxtRealDate.Text == "")
+                    if (string.IsNullOrEmpty(TxtNumber.Text) || string.IsNullOrEmpty(TxtPlannedDate.Text) || string.IsNullOrEmpty(TxtDateOfIssue.Text) || string.IsNullOrEmpty(TxtInvenarNumber.Text))
                     {
                         MessageBox.Show("Заполните все поля!");
                     }
@@ -156,9 +156,9 @@ namespace CityLibrary.Windows
 					
 				}
 
-				if (TxtRealDate.Text == null || TxtRealDate.Text == "")
+				if (TxtRealDate.Text == null || string.IsNullOrEmpty(TxtRealDate.Text))
 				{
-                    if(TxtRealDate.Text == "")
+                    if(string.IsNullOrEmpty(TxtRealDate.Text))
                     {
                         MessageBox.Show("Проверьте поле реальной даты возврата");
                     }

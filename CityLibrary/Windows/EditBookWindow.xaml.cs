@@ -66,7 +66,7 @@ namespace CityLibrary.Windows
 
             if (_book != null && _book.BookId > 0)
             {
-                if (TxtBookName.Text == "" || TxtAuthor.Text == "" || TxtBookCount.Text == "")
+                if (string.IsNullOrEmpty(TxtBookName.Text) || string.IsNullOrEmpty(TxtAuthor.Text) || string.IsNullOrEmpty(TxtBookCount.Text))
                 {
                     MessageBox.Show("Проверьте все поля, они должны быть заполнены!");
                 }
@@ -83,7 +83,7 @@ namespace CityLibrary.Windows
             }
             else
             {
-                if(TxtBookName.Text == "" || TxtAuthor.Text == "" || TxtBookCount.Text == "")
+                if(string.IsNullOrEmpty(TxtBookName.Text)|| string.IsNullOrEmpty(TxtAuthor.Text) || string.IsNullOrEmpty(TxtBookCount.Text))
                 {
                     MessageBox.Show("Проверьте все поля, они должны быть заполнены!");
                 }
